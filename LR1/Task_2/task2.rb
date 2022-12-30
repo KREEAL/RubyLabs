@@ -58,7 +58,7 @@ def appl_derivatives(number)
   appl = 1
   touched = false
   number_sumcifr = sumcifr number
-  (2..Math.sqrt(number)).each {|i|
+  (2..number/2).each {|i|
     if sumcifr i < number_sumcifr
       appl*=i
       touched = true
