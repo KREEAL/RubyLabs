@@ -1,22 +1,22 @@
 require 'set'
 #Дан целочисленный массив. Необходимо найти количество элементов, расположенных после последнего максимального.
 def task1(arr)
-  arr.reverse!.find_index(arr.min)
+  arr.reverse!.find_index(arr.max)
 end
 
 
 #Дан целочисленный массив. Необходимо разместить элементы,расположенные до минимального, в конце массива
 def task13(arr)
-  arr.slice(arr.min..arr.length)+arr.slice(0..arr.min-1)
-end
 
+arr.slice(arr.index(arr.min)..arr.length-1) + arr.slice(0..arr.index(arr.min)-1)
+
+end
 
 #Дан целочисленный массив и интервал a..b. Необходимо найти максимальный из элементов в этом интервале.
 def task25(arr,a,b)
   newa = Array.new((b-a).abs+1){|i| i+[a,b].min}
   (arr & newa).max
 end
-
 
 #1.37 Дан целочисленный массив. Вывести индексы элементов, которые меньше своего левого соседа, и количество таких чисел
 
@@ -32,6 +32,7 @@ def task37(arr,index=1,count=0)
     end
   end
 end
+
 
 def prime?(number)
   (2..Math.sqrt(number)).each { |i|
@@ -64,27 +65,40 @@ def task49(arr,arr_der=[])
   end
 end
 
-a = [25,36,12,17,49,39]
+while 0!=1
+  p "Введите длину списка"
+  len = gets.chomp.to_i
+  a =[]
+  p "Вводите список"
+  for i in 0...len
+    a.append(gets.chomp.to_i)
+  end
+
+  mark = true
+  while mark
+  p "Задача: 1, 13, 25, 37, 49"
+  input = gets.chomp.to_i
 
 
-p task49 a
+  case input
+  when input = 1
+    puts task1 a
+  when input = 13
+    puts task13 a
+  when input = 25
+    p "Введите a"
+    aa = gets.chomp.to_i
+    p "Введите b"
+    bb = gets.chomp.to_i
+    puts task25 a, aa, bb
+  when input = 37
+    puts task37 a
+  when input = 49
+    puts task49 a
 
-# while 0!=1
-#   p "1,13,25,37,39"
-#   input = gets.chomp.to_i
-#   case input
-#   when input = 1
-#     puts "1"
-#   when input = 13
-#     puts "1"
-#   when input = 25
-#     puts "1"
-#   when input = 37
-#     puts "1"
-#   when input = 49
-#     puts "1"
-#
-#   else
-#     puts "nothing to see here"
-#   end
-# end
+  else
+    puts "nothing to see here"
+    mark = false
+  end
+  end
+end
