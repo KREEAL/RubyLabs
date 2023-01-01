@@ -9,9 +9,18 @@ def task13(arr)
   arr.slice(arr.min..arr.length)+arr.slice(0..arr.min-1)
 end
 
-a = [1,2,3,4,-5,6,7,8,9]
 
-p task13 a
+#Дан целочисленный массив и интервал a..b. Необходимо найти максимальный из элементов в этом интервале.
+def task25(arr,a,b)
+  newa = Array.new((b-a).abs+1){|i| i+[a,b].min}
+  (arr & newa).max
+end
+
+a = [1,2,3,4,-5,6,7,9]
+
+
+
+p task25 a,-1,-2
 
 # while 0!=1
 #   p "1,13,25,37,39"
