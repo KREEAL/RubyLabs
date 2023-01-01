@@ -50,20 +50,20 @@ def sumcifr(number)
   acc
 end
 
-puts sumcifr 123
-
 #Найти произведение делителей числа, сумма цифр которых меньше суммы цифр исходного
-
 def appl_derivatives(number)
   appl = 1
   touched = false
   number_sumcifr = sumcifr number
-  (2..number/2).each {|i|
-    if sumcifr i < number_sumcifr
-      appl*=i
+  (2..number / 2).each { |i|
+    if number%i==0
+      i_sumc = sumcifr i
+      if i_sumc < number_sumcifr
+      appl *= i
       touched = true
+      end
     end
-    }
+  }
   if touched
     appl
   else
