@@ -16,11 +16,26 @@ def task25(arr,a,b)
   (arr & newa).max
 end
 
-a = [1,2,3,4,-5,6,7,9]
+
+#1.37 Дан целочисленный массив. Вывести индексы элементов, которые меньше своего левого соседа, и количество таких чисел
+
+def task37(arr,index=1,count=0)
+  if arr.length == 1
+    count
+  else
+    if arr[1]<arr[0]
+      p index
+      task37(arr.slice(1,arr.length-1),index+1,count+1)
+    else
+      task37(arr.slice(1,arr.length-1),index+1,count)
+    end
+  end
+end
+
+a = [1,7,3,4,-5,6,10,9]
 
 
-
-p task25 a,-1,-2
+p task37 a
 
 # while 0!=1
 #   p "1,13,25,37,39"
