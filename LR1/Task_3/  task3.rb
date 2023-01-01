@@ -20,9 +20,12 @@ end
 
 def find_first_positive(arr)
   elem = -1
+  count = 0
   for el in arr
-    if el > 0
+      return count if el>0
+      count +=1
   end
+  elem
 end
 
 a = [1,-2,3,4,-5,6,]
