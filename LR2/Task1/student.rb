@@ -26,7 +26,12 @@ class Student
 
 
   def to_s
-    @name + ' '+ @surname +  ' '+ @telegram
+    grand_string = "#{@surname} #{@name} #{@dadname}"
+    grand_string+= " #{@telephone}" if @telephone!="+XXXXXXXXXXX"
+    grand_string+= " tg:#{@telegram}" if @telegram!="@example"
+    grand_string+= " #{@mail}" if @mail!="example@example.example"
+    grand_string+= " git:#{@git}" if @git!= "@example"
+    grand_string
   end
 end
 
