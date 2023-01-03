@@ -1,22 +1,33 @@
 # frozen_string_literal: true
 
 class Student
-  @id = __id__
-  @telephone = "+XXXXXXXXXXX"
-  @telegram = "@example"
-  @mail = "example@example.example"
-  @git = "@example"
-  def initialize (surname,name,dadname,telephone,telegram,mail,git)
+
+  def initialize (surname,name,dadname,telephone="+XXXXXXXXXXX",telegram="@example",mail="example@example.example",git="@example")
     @surname = surname
     @name = name
     @dadname = dadname
+    @telephone = telephone
+    @telegram = telegram
+    @mail = mail
+    @git = git
+    @id = __id__
   end
 
-  attr_reader :name, :surname, :dadname,:id
+  attr_accessor :name, :surname, :dadname,:telephone,:telegram,:mail,:git,:id
+
+  #Я нашел как пишутся геттеры и сеттеры, не бейте пж за attr_accessor
+  # def name
+  #   @name
+  # end
+  #
+  # def name=(value)
+  #   @name = value
+  # end
+
 
   def to_s
-    p @name + ' '+ @surname + ' ' + @id + ' '+ @telegram
+    @name + ' '+ @surname +  ' '+ @telegram
   end
 end
 
-s1 = Student.new('a','b','c')
+s1 = Student.new('a','b','c',"+79649265792","@RetardKreeal")
