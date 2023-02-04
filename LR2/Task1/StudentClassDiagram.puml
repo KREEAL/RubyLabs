@@ -1,0 +1,24 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Student {
+    -id: Integer
+    -last_name: String
+    -first_name: String
+    -dadname: String
+    -telephone: String
+    -telegram: String
+    -mail: String
+    -git: String
+    +{static}valid_name?(String): Boolean
+    +{static}valid_profile_name?(String): Boolean
+    +{static}valid_telephone?(String): Boolean
+    +{static}valid_email?(String): Boolean
+    +initialize(String, String, String, Hash)
+    +valid_git?(): Boolean
+    +valid_contacts?(): Boolean
+    +valid?(): Boolean
+    +set_contacts(Hash)
+    +to_s(): String
+}
+@enduml
