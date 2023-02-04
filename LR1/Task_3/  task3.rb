@@ -33,19 +33,20 @@ a = [1,-2,3,4,-5,6,]
 
 def task_3_ask()
   p "Введите путь к файлу"
-  filepath = gets
+  #filepath = gets
+  filepath= ARGV[0]
   file_1 = File.open("#{filepath.chomp}")
   file_data = file_1.readlines.map(&:chomp).map{ |item|item.to_i }
 
   p file_data
   "Какой метод хотите выполнить? .1.Найти минимум .2.Найти элементы .3.Найти номер первого положительного элемента".each_line(separator = " .") {|s| p s}
-  choose = gets.chomp
+  choose = STDIN.gets.chomp.downcase
   case choose
   when "1"
     puts min_el file_data
   when "2"
     p "Введите элемент для поиска"
-    el = gets.chomp.to_i
+    el = STDIN.gets.chomp.downcase.to_i
     puts find_all_els file_data, el
   when "3"
     puts find_first_positive file_data
@@ -54,6 +55,6 @@ def task_3_ask()
   end
 end
 
-while 5<10
+while 5<10 do
   task_3_ask
 end
