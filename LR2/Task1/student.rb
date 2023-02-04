@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Student
-  def initialize(surname,first_name,dadname,options)
-      self.last_name = surname
+  def initialize(last_name,first_name,dadname,options)
+      self.last_name = last_name
       self.first_name = first_name
       self.dadname = dadname
 
@@ -69,9 +69,19 @@ class Student
     @email = new_mail
   end
 
+  def valid_contacts?
+    !phone.nil?|| !telegram.nil? || !mail.nil?
+  end
 
+  def valid_git?
+    !git.nil?
+  end
+
+  def valid?
+    valid_contacts? && valid_git?
+  end
   def to_s
-    grand_string = "#{@surname} #{@name} #{@dadname}"
+    grand_string = "#{@last_name} #{@first_name} #{@dadname}"
     grand_string += " #{@telephone}" unless @telephone.nil?
     grand_string += " tg:#{@telegram}" unless @telegram.nil?
     grand_string += " #{@mail}" unless @mail.nil?
