@@ -2,22 +2,28 @@
 
 class Student
   def initialize(surname,name,dadname,options)
-      @surname = surname
-      @name = name
-      @dadname = dadname
+      self.surname = surname
+      self.name = name
+      self.dadname = dadname
 
-
-      @telegram = options[:telegram]
-      @mail = options[:mail]
-      @git = options[:git]
-      @id = options[:id]
+      self.telephone = options[:telephone]
+      self.telegram = options[:telegram]
+      self.mail = options[:mail]
+      self.git = options[:git]
+      self.id = options[:id]
   end
 
-  attr_accessor :name, :surname, :dadname,:telephone,:telegram,:mail,:git,:id
+  attr_accessor :name, :surname, :dadname,:telegram,:mail,:git,:id
+  attr_reader :telephone
 
   def self.telephone_number?(number)
     return true unless (number =~ /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/).nil?
     false
+  end
+
+  def telephone=(new_telephone)
+    raise ArgumentError, "Invalid argument: telephone=#{new_telephone}" unless new_telephone.nil? || Student.telephone_number?(new_telephone)
+    @telephone = new_phone
   end
 
 

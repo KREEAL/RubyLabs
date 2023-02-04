@@ -7,4 +7,3 @@ student3 = Student.new("Matcumoto","Yukihiro","Viktorovich",{git:"@DadOfRuby",te
 puts student1
 puts student2
 puts student3
-p Student.telephone_number?("+79649265792")
