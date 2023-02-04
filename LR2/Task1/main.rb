@@ -25,4 +25,6 @@ test_invalid_fields({ mail: 'tsvetikov@mail.ru' })
 test_invalid_fields({ telegram: 'Webdev3000' })
 test_invalid_fields({ telegram: 'Всем привет я тут новенький' })
 
+student3.set_contacts({telegram:"vovapro",telephone:"+79999999900"})
+puts student3
 # student1.first_name="AnDrEw"

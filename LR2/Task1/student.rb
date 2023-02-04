@@ -15,7 +15,18 @@ class Student
 
 
   attr_accessor :id
-  attr_reader :last_name, :first_name, :dadname, :phone, :telegram, :mail, :git
+  attr_reader :last_name, :first_name, :dadname, :telephone, :telegram, :mail, :git
+
+  def valid_git?
+    !git.nil?
+  end
+  def valid_contacts?
+    !telephone.nil?|| !telegram.nil? || !mail.nil?
+  end
+
+  def valid?
+    valid_contacts? && valid_git?
+  end
 
   #Общая проверка на ФИО
   def self.valid_name?(name)
@@ -69,16 +80,12 @@ class Student
     @email = new_mail
   end
 
-  def valid_contacts?
-    !phone.nil?|| !telegram.nil? || !mail.nil?
-  end
 
-  def valid_git?
-    !git.nil?
-  end
 
-  def valid?
-    valid_contacts? && valid_git?
+  def set_contacts(options)
+    self.telephone = options[:telephone] if options.key?(:telephone)
+    self.telegram = options[:telegram] if options.key?(:telegram)
+    self.mail = options[:mail] if options.key?(:mail)
   end
   def to_s
     grand_string = "#{@last_name} #{@first_name} #{@dadname}"
