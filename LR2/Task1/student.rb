@@ -10,7 +10,7 @@ class Student
       @telegram = options[:telegram]
       @mail = options[:mail]
       @git = options[:git]
-      @id = __id__
+      @id = options[:id]
   end
 
   attr_accessor :name, :surname, :dadname,:telephone,:telegram,:mail,:git,:id
