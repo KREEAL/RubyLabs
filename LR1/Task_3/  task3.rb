@@ -31,7 +31,7 @@ end
 a = [1,-2,3,4,-5,6,]
 
 
-def task_3_ask()
+def asking_user_about_what_to_do()
   p "Введите путь к файлу"
   #filepath = gets
   filepath= ARGV[0]
@@ -56,5 +56,5 @@ def task_3_ask()
 end
 
 while 5<10 do
-  task_3_ask
+  asking_user_about_what_to_do
 end

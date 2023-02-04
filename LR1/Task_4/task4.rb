@@ -1,34 +1,34 @@
 require 'set'
 #Дан целочисленный массив. Необходимо найти количество элементов, расположенных после последнего максимального.
-def task1(arr)
+def find_count_elems_after_last_min(arr)
   arr.reverse!.find_index(arr.max)
 end
 
 
 #Дан целочисленный массив. Необходимо разместить элементы,расположенные до минимального, в конце массива
-def task13(arr)
+def move_elems_before_min_to_end(arr)
 
 arr.slice(arr.index(arr.min)..arr.length-1) + arr.slice(0..arr.index(arr.min)-1)
 
 end
 
 #Дан целочисленный массив и интервал a..b. Необходимо найти максимальный из элементов в этом интервале.
-def task25(arr,a,b)
+def find_max_el_in_interval(arr, a, b)
   newa = Array.new((b-a).abs+1){|i| i+[a,b].min}
   (arr & newa).max
 end
 
 #1.37 Дан целочисленный массив. Вывести индексы элементов, которые меньше своего левого соседа, и количество таких чисел
 
-def task37(arr,index=1,count=0)
+def indecies_smaller_than_left_neighbour_and_count_of_it(arr, index=1, count=0)
   if arr.length == 1
     count
   else
     if arr[1]<arr[0]
       p index
-      task37(arr.slice(1,arr.length-1),index+1,count+1)
+      indecies_smaller_than_left_neighbour_and_count_of_it(arr.slice(1, arr.length-1), index+1, count+1)
     else
-      task37(arr.slice(1,arr.length-1),index+1,count)
+      indecies_smaller_than_left_neighbour_and_count_of_it(arr.slice(1, arr.length-1), index+1, count)
     end
   end
 end
@@ -57,11 +57,11 @@ end
 
 
 #1.49. Для введенного списка положительных чисел построить список всех положительных простых делителей элементов списка без повторений.
-def task49(arr,arr_der=[])
+def make_list_set_of_positive_prime_derivatives(arr, arr_der=[])
   if arr.length == 0
     arr_der.to_set.to_a.sort!
   else
-    task49(arr.slice(1,arr.length-1),arr_der+get_prime_derivatives(arr[0]))
+    make_list_set_of_positive_prime_derivatives(arr.slice(1, arr.length-1), arr_der+get_prime_derivatives(arr[0]))
   end
 end
 
@@ -82,19 +82,19 @@ while 0!=1
 
   case input
   when input = 1
-    puts task1 a
+    puts find_count_elems_after_last_min a
   when input = 13
-    puts task13 a
+    puts move_elems_before_min_to_end a
   when input = 25
     p "Введите a"
     aa = gets.chomp.to_i
     p "Введите b"
     bb = gets.chomp.to_i
-    puts task25 a, aa, bb
+    puts find_max_el_in_interval a, aa, bb
   when input = 37
-    puts task37 a
+    puts indecies_smaller_than_left_neighbour_and_count_of_it a
   when input = 49
-    puts task49 a
+    puts make_list_set_of_positive_prime_derivatives a
 
   else
     puts "nothing to see here"
