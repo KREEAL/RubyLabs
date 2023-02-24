@@ -14,11 +14,13 @@ class Student {
     +{static}valid_profile_name?(String): Boolean
     +{static}valid_telephone?(String): Boolean
     +{static}valid_email?(String): Boolean
+    +{static}from_json(String): Student
     +initialize(String, String, String, Hash)
     +valid_git?(): Boolean
     +valid_contacts?(): Boolean
     +valid?(): Boolean
     +set_contacts(Hash)
     +to_s(): String
+    +to_json(): String
 }
 @enduml

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'json'
+
 class Student
   def initialize(last_name,first_name,dadname,options)
       self.last_name = last_name
@@ -32,8 +34,8 @@ class Student
     false
   end
 
-  def self.valid_mail?(email)
-    email.match(/^(?:[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/)
+  def self.valid_mail?(mail)
+    mail.match(/^(?:[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/)
   end
 
   def last_name=(new_last_name)
@@ -48,7 +50,7 @@ class Student
 
   def dadname=(new_dadname)
     raise ArgumentError, "Invalid argument: dadname=#{new_dadname}" unless Student.valid_name?(new_dadname)
-    @father_name = new_dadname
+    @dadname = new_dadname
   end
 
   def telephone=(new_telephone)
@@ -68,7 +70,7 @@ class Student
 
   def mail=(new_mail)
     raise ArgumentError, "Invalid argument: email=#{new_mail}" unless new_mail.nil? || Student.valid_mail?(new_mail)
-    @email = new_mail
+    @mail = new_mail
   end
 
   def valid_git?
@@ -97,5 +99,25 @@ class Student
     grand_string += " git:#{@git}" unless @git.nil?
     grand_string
   end
+
+  def to_json
+    attribs = {}
+    fields =  [:last_name, :first_name, :dadname, :telephone, :telegram, :mail, :git, :id]
+    fields.each do |attr|
+      attrib_val = send(attr.to_sym)
+      attribs[attr] = attrib_val unless attrib_val.nil?
+    end
+    JSON.generate(attribs)
+  end
+
+  def self.from_json (json_str)
+    parsed = JSON.parse(json_str)
+    last_name = parsed['last_name']
+    first_name = parsed['first_name']
+    dadname = parsed['dadname']
+
+    Student.new(last_name,first_name,dadname,parsed.transform_keys(&:to_sym))
+  end
+
 end
 
