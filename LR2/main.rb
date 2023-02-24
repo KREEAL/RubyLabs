@@ -9,6 +9,7 @@ a = student2.to_json
 student4 = Student.from_json(a)
 puts student4
 
+student5 = Student.new("Плебеев", "Удел", "Таковский",{})
 
 begin
   Student.from_json('Загон Шакалов Дикович')
@@ -22,3 +23,10 @@ rescue ArgumentError => e
   puts "#{e.message}"
 end
 
+puts student4.short_fio
+puts student4.get_contact
+puts student3.get_contact
+puts student5.get_contact
+
+puts student3.getInfo
+puts student5.getInfo

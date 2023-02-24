@@ -20,6 +20,9 @@ class Student {
     +valid_contacts?(): Boolean
     +valid?(): Boolean
     +set_contacts(Hash)
+    +short_info(): String
+    +get_contact(): String
+    +getInfo(): String
     +to_s(): String
     +to_json(): String
 }

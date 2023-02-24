@@ -100,6 +100,24 @@ class Student
     grand_string
   end
 
+  #Фамилия и инициалы
+  def short_fio
+    "#{last_name} #{first_name[0]}. #{dadname[0]}."
+  end
+  #Первый нениловый контакт
+  def get_contact
+    return "Telephone: #{telephone}" unless telephone.nil?
+    return "Tg: #{telegram}" unless telegram.nil?
+    return "Email: #{mail}" unless telegram.nil?
+    "Contacts: none"
+  end
+  #Краткая информация о студенте
+  def getInfo
+    git_str = ", Git: #{git}."
+    git_str = "" if git.nil?
+    "#{short_fio}, #{get_contact}" + git_str
+  end
+
   def to_json
     attribs = {}
     fields =  [:last_name, :first_name, :dadname, :telephone, :telegram, :mail, :git, :id]
@@ -109,6 +127,7 @@ class Student
     end
     JSON.generate(attribs)
   end
+
 
   def self.from_json (json_str)
 
@@ -123,6 +142,7 @@ class Student
 
     Student.new(last_name,first_name,dadname,parsed.transform_keys(&:to_sym))
   end
+
 
 end
 
