@@ -78,9 +78,11 @@ class Student
     !telephone.nil?|| !telegram.nil? || !mail.nil?
   end
 
+  #валидность по наличию контактов или гита
   def valid?
     valid_contacts? && valid_git?
   end
+
 
   def set_contacts(options)
     self.telephone = options[:telephone] if options.key?(:telephone)
