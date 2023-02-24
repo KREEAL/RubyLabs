@@ -111,7 +111,12 @@ class Student
   end
 
   def self.from_json (json_str)
+
+    #Если что-то не так с json, то ведь он и сам ошибку выкинет
     parsed = JSON.parse(json_str)
+
+    raise ArgumentError, 'Заполните все необходимые поля' unless parsed.key?('last_name') && parsed.key?('first_name') && parsed.key?('dadname')
+
     last_name = parsed['last_name']
     first_name = parsed['first_name']
     dadname = parsed['dadname']

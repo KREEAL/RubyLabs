@@ -8,3 +8,17 @@ student3 = Student.new("Matcumoto","Yukihiro","Viktorovich",{git:"DadOfRuby",tel
 a = student2.to_json
 student4 = Student.from_json(a)
 puts student4
+
+
+begin
+  Student.from_json('Загон Шакалов Дикович')
+rescue JSON::ParserError => e
+  puts "#{e.message}"
+end
+
+begin
+  Student.from_json('{"first_name": "Кирилл", "email":"kirillkirill@mail.ru"}')
+rescue ArgumentError => e
+  puts "#{e.message}"
+end
+
