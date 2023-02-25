@@ -1,0 +1,1 @@
+{"ObjList":[{"last_name":"Tsvetkov","first_name":"Kirill","dadname":"Alexandrovich","telephone":"+79649265792"},{"last_name":"Ivanov","first_name":"Ivan","dadname":"Ivanovich","telephone":"+7964926582","telegram":"VanyaPro","mail":"vanyavanyavanya@mail.ru"},{"last_name":"Matcumoto","first_name":"Yukihiro","dadname":"Viktorovich","telegram":"RubyDad","git":"DadOfRuby"}]}
