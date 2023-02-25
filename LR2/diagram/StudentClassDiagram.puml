@@ -50,6 +50,8 @@ class Student extends StudentBase{
     -dadname: String
     --
     +{static}from_json(String): Student
+    +{static}read_from_txt(String): List<Student>
+    +{static}write_to_txt(List<Student>,String): File
     +initialize(String, String, String, Hash)
     +set_contacts(Hash)
     +short_info(): String
