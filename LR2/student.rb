@@ -1,42 +1,38 @@
 # frozen_string_literal: true
 
 require 'json'
+require_relative 'student_base'
+class Student < StudentBase
+  #снимает блокировку абстрактности от родителя
+  public_class_method :new
+  def initialize(last_name, first_name, dadname, options)
+    self.last_name = last_name
+    self.first_name = first_name
+    self.dadname = dadname
+    super(options)
+  end
 
-class Student
-  def initialize(last_name,first_name,dadname,options)
-      self.last_name = last_name
-      self.first_name = first_name
-      self.dadname = dadname
+  def self.from_json (json_str)
 
-      self.telephone = options[:telephone]
-      self.telegram = options[:telegram]
-      self.mail = options[:mail]
-      self.git = options[:git]
-      self.id = options[:id]
+    #Если что-то не так с json, то ведь он и сам ошибку выкинет
+    parsed = JSON.parse(json_str)
+
+    raise ArgumentError, 'Заполните все необходимые поля' unless parsed.key?('last_name') && parsed.key?('first_name') && parsed.key?('dadname')
+
+    last_name = parsed['last_name']
+    first_name = parsed['first_name']
+    dadname = parsed['dadname']
+
+    Student.new(last_name,first_name,dadname,parsed.transform_keys(&:to_sym))
   end
 
 
-  attr_accessor :id
-  attr_reader :last_name, :first_name, :dadname, :telephone, :telegram, :mail, :git
+  # Распривачиваем все, что запривачено
+  public :telephone, :telegram, :mail, 'id=', 'telephone=', 'telegram=', 'mail=', 'git='
+
+  attr_reader :last_name, :first_name, :dadname
 
 
-
-  #Общая проверка на ФИО
-  def self.valid_name?(name)
-    name.match(/(^[А-Я][а-я]+$)|(^[A-Z][a-z]+$)/)
-  end
-  #Общая проверка на имена тг/гита и тд
-  def self.valid_profile_name?(profile_name)
-    profile_name.match(/^[a-zA-Z0-9_.]+$/)
-  end
-  def self.valid_telephone?(number)
-    return true unless (number =~ /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/).nil?
-    false
-  end
-
-  def self.valid_mail?(mail)
-    mail.match(/^(?:[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/)
-  end
 
   def last_name=(new_last_name)
     raise ArgumentError, "Invalid argument: last_name=#{new_last_name}" unless Student.valid_name?(new_last_name)
@@ -53,64 +49,18 @@ class Student
     @dadname = new_dadname
   end
 
-  def telephone=(new_telephone)
-    raise ArgumentError, "Invalid argument: telephone=#{new_telephone}" unless new_telephone.nil? || Student.valid_telephone?(new_telephone)
-    @telephone = new_telephone
-  end
-
-  def telegram=(new_telegram)
-    raise ArgumentError, "Invalid argument: telegram=#{new_telegram}" unless new_telegram.nil? || Student.valid_profile_name?(new_telegram)
-    @telegram = new_telegram
-  end
-
-  def git=(new_git)
-    raise ArgumentError, "Invalid argument: git=#{new_git}" unless new_git.nil? || Student.valid_profile_name?(new_git)
-    @git = new_git
-  end
-
-  def mail=(new_mail)
-    raise ArgumentError, "Invalid argument: email=#{new_mail}" unless new_mail.nil? || Student.valid_mail?(new_mail)
-    @mail = new_mail
-  end
-
-  def valid_git?
-    !git.nil?
-  end
-  def valid_contacts?
-    !telephone.nil?|| !telegram.nil? || !mail.nil?
-  end
-
-  #валидность по наличию контактов или гита
-  def valid?
-    valid_contacts? && valid_git?
-  end
-
-
+  #поставить контакты
   def set_contacts(options)
     self.telephone = options[:telephone] if options.key?(:telephone)
     self.telegram = options[:telegram] if options.key?(:telegram)
     self.mail = options[:mail] if options.key?(:mail)
-  end
-  def to_s
-    grand_string = "#{@last_name} #{@first_name} #{@dadname}"
-    grand_string += " #{@telephone}" unless @telephone.nil?
-    grand_string += " tg:#{@telegram}" unless @telegram.nil?
-    grand_string += " #{@mail}" unless @mail.nil?
-    grand_string += " git:#{@git}" unless @git.nil?
-    grand_string
   end
 
   #Фамилия и инициалы
   def short_fio
     "#{last_name} #{first_name[0]}. #{dadname[0]}."
   end
-  #Первый нениловый контакт
-  def get_contact
-    return "Telephone: #{telephone}" unless telephone.nil?
-    return "Tg: #{telegram}" unless telegram.nil?
-    return "Email: #{mail}" unless telegram.nil?
-    "Contacts: none"
-  end
+
   #Краткая информация о студенте
   def getInfo
     git_str = ", Git: #{git}."
@@ -118,6 +68,16 @@ class Student
     "#{short_fio}, #{get_contact}" + git_str
   end
 
+  #информация для создания student_short объекта просто из student
+  def info_short
+    info_sh = {}
+    info_sh[:short_fio] = short_fio
+    info_sh[:contact] = get_contact
+    info_sh[:git] = git
+    JSON.generate(info_sh)
+  end
+
+  #в json строку
   def to_json
     attribs = {}
     fields =  [:last_name, :first_name, :dadname, :telephone, :telegram, :mail, :git, :id]
@@ -127,22 +87,15 @@ class Student
     end
     JSON.generate(attribs)
   end
-
-
-  def self.from_json (json_str)
-
-    #Если что-то не так с json, то ведь он и сам ошибку выкинет
-    parsed = JSON.parse(json_str)
-
-    raise ArgumentError, 'Заполните все необходимые поля' unless parsed.key?('last_name') && parsed.key?('first_name') && parsed.key?('dadname')
-
-    last_name = parsed['last_name']
-    first_name = parsed['first_name']
-    dadname = parsed['dadname']
-
-    Student.new(last_name,first_name,dadname,parsed.transform_keys(&:to_sym))
+  #в строку
+  def to_s
+    grand_string = "#{@last_name} #{@first_name} #{@dadname}"
+    grand_string += " #{@telephone}" unless @telephone.nil?
+    grand_string += " tg:#{@telegram}" unless @telegram.nil?
+    grand_string += " #{@mail}" unless @mail.nil?
+    grand_string += " git:#{@git}" unless @git.nil?
+    grand_string
   end
-
 
 end
 
