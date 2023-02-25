@@ -14,6 +14,14 @@ studslist.each do |stud|
   puts stud.getInfo
 end
 
+great_students_list = [student1,student2,student3]
+file_path = 'C:\Users\kirya\RubymineProjects\RubyLabs\LR2\anti_diagram\students1.txt'
+Student.write_to_txt(great_students_list,file_path)
+great_students_list_parsed = Student.read_from_txt(file_path)
+great_students_list_parsed.each do |stud|
+  puts stud.getInfo
+end
+
 # a = student2.to_json
 # student4 = Student.from_json(a)
 # puts student4

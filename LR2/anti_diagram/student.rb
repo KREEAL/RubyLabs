@@ -95,6 +95,15 @@ class Student < StudentBase
     students_list
   end
 
+  def self.write_to_txt(students_list,file_path)
+    json_string = '{"ObjList":['
+    students_list.each do |stud|
+      json_string+=stud.to_json+","
+    end
+    json_string = json_string.chop + "]}"
+    File.write(file_path,json_string)
+  end
+
   #в json строку
   def to_json
     attribs = {}
