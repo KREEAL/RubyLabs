@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# frozen_string_literal: false
 
 require 'json'
 require_relative 'student_base'
@@ -13,7 +13,6 @@ class Student < StudentBase
   end
 
   def self.from_json (json_str)
-
     #Если что-то не так с json, то ведь он и сам ошибку выкинет
     parsed = JSON.parse(json_str)
 
@@ -75,6 +74,25 @@ class Student < StudentBase
     info_sh[:contact] = get_contact
     info_sh[:git] = git
     JSON.generate(info_sh)
+  end
+
+  def self.read_from_txt(file_path)
+    #что-то мне подсказывает, что это не клин фанкшн
+    raise ArgumentError, "Путь к файлу указан неверно" unless File.exist?(file_path)
+    badges = File.open(file_path, "r")
+    doc = ""
+    badges.each do |line|
+      doc << line
+    end
+    badges.close
+
+    students_list = []
+    objlist = JSON.parse(doc)
+
+    objlist["ObjList"].each do |obj|
+      students_list << from_json(obj.to_json)
+    end
+    students_list
   end
 
   #в json строку

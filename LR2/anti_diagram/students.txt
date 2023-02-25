@@ -1,0 +1,29 @@
+
+{
+  "ObjList": [
+    {
+      "last_name": "Ivanov",
+      "first_name": "Ivan",
+      "dadname": "Ivanovich",
+      "telephone": "+7964926582",
+      "telegram": "VanyaPro",
+      "mail": "vanyavanyavanya1@mail.ru"
+    },
+    {
+      "last_name": "Ivanov",
+      "first_name": "Ivan",
+      "dadname": "Ivanovich",
+      "telephone": "+7964926582",
+      "telegram": "VanyaPro",
+      "mail": "vanyavanyavanya2@mail.ru"
+    },
+    {
+      "last_name": "Ivanov",
+      "first_name": "Ivan",
+      "dadname": "Ivanovich",
+      "telephone": "+7964926582",
+      "telegram": "VanyaPro",
+      "mail": "vanyavanyavanya3@mail.ru"
+    }
+  ]
+}
