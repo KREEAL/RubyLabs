@@ -8,7 +8,11 @@ student2 = Student.new("Ivanov","Ivan","Ivanovich",{telegram:"VanyaPro",mail:"va
 student3 = Student.new("Matcumoto","Yukihiro","Viktorovich",{git:"DadOfRuby",telegram:"RubyDad" })
 
 
-puts Student.read_from_txt('C:\Users\kirya\RubymineProjects\RubyLabs\LR2\anti_diagram\students.txt')
+studslist = Student.read_from_txt('C:\Users\kirya\RubymineProjects\RubyLabs\LR2\anti_diagram\students.txt')
+
+studslist.each do |stud|
+  puts stud.getInfo
+end
 
 # a = student2.to_json
 # student4 = Student.from_json(a)
