@@ -77,4 +77,21 @@ class Student extends StudentBase{
     +dadname=(String)
 }
 
+class DataTable{
+    -table : Array
+    -rows_count: Integer
+    -cols_count: Integer
+    __
+    +initialize(Array)
+    +get_item(Integer,Integer): Object
+    __
+    +rows_count: Integer
+    +cols_count: Integer
+    -table: Array
+    __
+    -rows_count
+    -cols_count
+    -table
+}
+
 @enduml
