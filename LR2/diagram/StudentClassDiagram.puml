@@ -1,29 +1,78 @@
 @startuml
 'https://plantuml.com/class-diagram
-
-class Student {
+abstract class StudentBase {
     -id: Integer
-    -last_name: String
-    -first_name: String
-    -dadname: String
     -telephone: String
     -telegram: String
     -mail: String
     -git: String
+    __
     +{static}valid_name?(String): Boolean
     +{static}valid_profile_name?(String): Boolean
     +{static}valid_telephone?(String): Boolean
     +{static}valid_email?(String): Boolean
-    +{static}from_json(String): Student
-    +initialize(String, String, String, Hash)
+    -initialize(Hash)
     +valid_git?(): Boolean
     +valid_contacts?(): Boolean
     +valid?(): Boolean
+    +get_contact(): String
+    __
+    +id
+    +git
+    #telephone
+    #telegram
+    #mail
+    __
+    #id
+    #git=(String)
+    #telephone=(String)
+    #telegram=(String)
+    #mail=(String)
+
+}
+class StudentShort extends StudentBase {
+    -short_fio: String
+    -contact: Hash
+    --
+    +{static}from_student(Student): StudentShort
+    +initialize(id,info_short): StudentShort
+    +to_s(): String
+    --
+    +short_fio:String
+    +contact: Hash
+    --
+    -short_fio
+    -contact
+}
+class Student extends StudentBase{
+    -last_name: String
+    -first_name: String
+    -dadname: String
+    --
+    +{static}from_json(String): Student
+    +initialize(String, String, String, Hash)
     +set_contacts(Hash)
     +short_info(): String
-    +get_contact(): String
     +getInfo(): String
+    +info_short():String
     +to_s(): String
     +to_json(): String
+    --
+    +telephone: String
+    +telegram: String
+    +mail: String
+    +last_name: String
+    +first_name: String
+    +dadname: String
+    __
+    +id
+    +git=(String)
+    +telephone=(String)
+    +telegram=(String)
+    +mail=(String)
+    +last_name=(String)
+    +first_name=(String)
+    +dadname=(String)
 }
+
 @enduml
