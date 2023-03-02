@@ -46,10 +46,10 @@ class StudentBase
   end
 
   #валидации по всяким гитам и контактам
-  def valid_git?
+  def has_git?
     !git.nil?
   end
-  def valid_contacts?
+  def has_contacts?
     !telephone.nil?|| !telegram.nil? || !mail.nil?
   end
   def valid?

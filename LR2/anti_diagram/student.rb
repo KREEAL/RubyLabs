@@ -60,48 +60,14 @@ class Student < StudentBase
     "#{last_name} #{first_name[0]}. #{dadname[0]}."
   end
 
-  #Краткая информация о студенте
-  def getInfo
-    git_str = ", Git: #{git}."
-    git_str = "" if git.nil?
-    "#{short_fio}, #{get_contact}" + git_str
-  end
 
-  #информация для создания student_short объекта просто из student
+  #информация для создания student_short объекта просто из student и просто краткая информация
   def info_short
     info_sh = {}
     info_sh[:short_fio] = short_fio
     info_sh[:contact] = get_contact
     info_sh[:git] = git
     JSON.generate(info_sh)
-  end
-
-  def self.read_from_txt(file_path)
-    #что-то мне подсказывает, что это не клин фанкшн
-    raise ArgumentError, "Путь к файлу указан неверно" unless File.exist?(file_path)
-    badges = File.open(file_path, "r")
-    doc = ""
-    badges.each do |line|
-      doc << line
-    end
-    badges.close
-
-    students_list = []
-    objlist = JSON.parse(doc)
-
-    objlist["ObjList"].each do |obj|
-      students_list << from_json(obj.to_json)
-    end
-    students_list
-  end
-
-  def self.write_to_txt(students_list,file_path)
-    json_string = '{"ObjList":['
-    students_list.each do |stud|
-      json_string+=stud.to_json+","
-    end
-    json_string = json_string.chop + "]}"
-    File.write(file_path,json_string)
   end
 
   #в json строку

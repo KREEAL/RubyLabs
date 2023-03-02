@@ -12,8 +12,8 @@ abstract class StudentBase {
     +{static}valid_telephone?(String): Boolean
     +{static}valid_email?(String): Boolean
     -initialize(Hash)
-    +valid_git?(): Boolean
-    +valid_contacts?(): Boolean
+    +has_git?(): Boolean
+    +has_contacts?(): Boolean
     +valid?(): Boolean
     +get_contact(): String
     __
@@ -50,12 +50,9 @@ class Student extends StudentBase{
     -dadname: String
     --
     +{static}from_json(String): Student
-    +{static}read_from_txt(String): List<Student>
-    +{static}write_to_txt(List<Student>,String): File
     +initialize(String, String, String, Hash)
     +set_contacts(Hash)
     +short_info(): String
-    +getInfo(): String
     +info_short():String
     +to_s(): String
     +to_json(): String
@@ -94,4 +91,8 @@ class DataTable{
     -table
 }
 
+struct main {
+    +{static}read_from_txt(String): List<Student>
+    +{static}write_to_txt(List<Student>,String): File
+}
 @enduml
