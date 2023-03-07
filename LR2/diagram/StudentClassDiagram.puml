@@ -90,9 +90,28 @@ class DataTable{
     -cols_count
     -table
 }
+abstract class DataList{
+    -objects_list : Array
+    -selected_objects: Array
+    __
+    -initialize(Array)
+    +select_by_number(Integer)
+    +get_selected(): Array<Integer>
+    +clear_selected()
+    #get_names
+    #get_data
+    __
+    -objects_list: Array
+    -selected_objects: Array
+    __
+    -objects_list: Array
+    -selected_objects: Array
+}
 
 struct main {
     +{static}read_from_txt(String): List<Student>
     +{static}write_to_txt(List<Student>,String): File
 }
+
+DataList o-- DataTable
 @enduml
