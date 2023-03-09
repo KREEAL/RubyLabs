@@ -108,10 +108,27 @@ abstract class DataList{
     -selected_objects: Array
 }
 
-struct main {
-    +{static}read_from_txt(String): List<Student>
-    +{static}write_to_txt(List<Student>,String): File
+class DataListStudentShort extends DataList{
+    --
+    +initialize(Array)
+    +get_names(): DataTable
+    +get_data(): Array<String>
+    --
+    -objects_list: Array
+    -selected_objects: Array
+    __
+    -objects_list: Array
+    -selected_objects: Array
 }
 
-DataList o-- DataTable
+
+struct main {
+    +{static}read_from_txt(String): List<Student>
+    +{static}write_to_txt(List<Student>,String):
+    +{static}show_data_table(DataTable):
+}
+
+
+
+DataList ..> DataTable
 @enduml

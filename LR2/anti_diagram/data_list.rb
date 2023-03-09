@@ -13,6 +13,7 @@ class DataList
   end
 
   def get_selected
+    return [] if self.selected_objects.length == 0
     selected_id_list = []
     selected_objects.each { |num|
       selected_id_list.append(objects_list[num].id)
@@ -32,7 +33,6 @@ class DataList
   def get_data
     raise NotImplementedError, 'You should implement get_data when extend DataList'
   end
-
 
   private
   attr_accessor :objects_list, :selected_objects

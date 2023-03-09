@@ -7,7 +7,9 @@
       "dadname": "Ivanovich",
       "telephone": "+7964926582",
       "telegram": "VanyaPro",
-      "mail": "vanyavanyavanya1@mail.ru"
+      "git":"gitshub1",
+      "mail": "vanyavanyavanya1@mail.ru",
+      "id":11
     },
     {
       "last_name": "Ivanov",
@@ -15,7 +17,9 @@
       "dadname": "Ivanovich",
       "telephone": "+7964926582",
       "telegram": "VanyaPro",
-      "mail": "vanyavanyavanya2@mail.ru"
+      "git":"gitshub2",
+      "mail": "vanyavanyavanya2@mail.ru",
+      "id":22
     },
     {
       "last_name": "Ivanov",
@@ -23,7 +27,9 @@
       "dadname": "Ivanovich",
       "telephone": "+7964926582",
       "telegram": "VanyaPro",
-      "mail": "vanyavanyavanya3@mail.ru"
+      "git":"gitshub3",
+      "mail": "vanyavanyavanya3@mail.ru",
+      "id":33
     }
   ]
 }

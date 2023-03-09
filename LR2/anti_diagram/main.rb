@@ -2,6 +2,8 @@ require_relative 'student'
 require_relative 'student_base'
 require_relative 'student_short'
 require_relative 'data_table'
+require_relative 'data_list'
+require_relative 'data_list_student_short'
 
 
 def self.read_from_txt(file_path)
@@ -17,7 +19,7 @@ def self.read_from_txt(file_path)
   objlist = JSON.parse(doc)
 
   objlist["ObjList"].each do |obj|
-    students_list << from_json(obj.to_json)
+    students_list << Student.from_json(obj.to_json)
   end
   students_list
 end
@@ -31,10 +33,34 @@ def self.write_to_txt(students_list,file_path)
   File.write(file_path,json_string)
 end
 
+#я знаю. Не клин фанкшн. Просто для проверки тут лежит
+def show_data_table(datatable)
+  (0..(datatable.rows_count-1)).each do |i|
+    resultrow = []
+    (0..(datatable.cols_count-1)).each do |j|
+      resultrow << datatable.get_item(i,j).to_s
+    end
+    puts resultrow
+  end
+  end
 
-data_test = [[1, 'A', [true,true,true]], [0, 'B']]
-data_table = DataTable.new(data_test)
-puts data_table.get_item(0, 2)
-puts data_table.rows_count
-puts data_table.cols_count
+
+long_students = read_from_txt('./LR2/anti_diagram/students.txt')
+
+short_students = []
+
+long_students.each do |student|
+  short_students << StudentShort.from_student(student)
+end
+
+dlsh = DataListStudentShort.new(short_students)
+
+show_data_table(dlsh.get_data)
+
+dlsh.select_by_number(1)
+dlsh.select_by_number(2)
+dlsh.select_by_number(0)
+dlsh.select_by_number(0)
+
+puts dlsh.get_selected
 
