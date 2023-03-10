@@ -2,6 +2,7 @@ class DataList
 
   private_class_method :new
 
+  attr_writer :objects_list
 
   def initialize(objects)
     self.objects_list = objects
@@ -51,6 +52,7 @@ class DataList
   end
 
   private
-  attr_accessor :objects_list, :selected_objects
+  attr_reader :objects_list
+  attr_accessor  :selected_objects
 
 end
