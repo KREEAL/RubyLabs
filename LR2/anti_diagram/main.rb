@@ -53,7 +53,10 @@ long_students.each do |student|
   short_students << StudentShort.from_student(student)
 end
 
+
 dlsh = DataListStudentShort.new(short_students)
+
+
 
 show_data_table(dlsh.get_data)
 
@@ -63,4 +66,8 @@ dlsh.select_by_number(0)
 dlsh.select_by_number(0)
 
 puts dlsh.get_selected
+
+
+puts(short_students[0].contact)
+puts(long_students[0].to_json)
 

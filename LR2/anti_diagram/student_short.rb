@@ -6,10 +6,11 @@ class StudentShort < StudentBase
   public_class_method :new
 
   private
-  attr_writer :short_fio, :contact
+  attr_writer :short_fio
+  # attr_accessor :contact
 
   public
-  attr_reader :short_fio, :contact,
+  attr_reader :short_fio
 
   #Создание короткого студента из не короткого
   def self.from_student(student)
@@ -21,11 +22,14 @@ class StudentShort < StudentBase
     raise ArgumentError, 'Нет всей информации' if  !shorts.key?(:contact) || shorts[:contact].nil?  ||  !shorts.key?(:short_fio) || shorts[:short_fio].nil?
     self.id = id
     self.short_fio = shorts[:short_fio]
-    self.contact = shorts[:contact].transform_keys(&:to_sym)
+    #self.contact = shorts[:contact].transform_keys(&:to_sym)
     self.git = shorts[:git]
     options = {}
     options[:id] = id
     options[:git] = git
+    #
+    contact = shorts[:contact].transform_keys(&:to_sym)
+    #
     options[contact[:type].to_sym] = contact[:value]
     super(options)
   end
@@ -33,6 +37,7 @@ class StudentShort < StudentBase
   def to_s
     grand_string = "#{short_fio}"
     grand_string += " git:#{git}" unless git.nil?
+    contact = get_contact
     grand_string += " #{contact[:type]}:#{contact[:value]}" unless contact.nil?
     grand_string
   end
