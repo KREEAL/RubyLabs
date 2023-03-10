@@ -13,7 +13,7 @@ class DataListStudentShort < DataList
 
   protected
   def get_fields_datatable(object)
-    [object.short_fio, object.git, object.contact]
+    [object.short_fio, object.git, object.get_contact]
   end
 
 end

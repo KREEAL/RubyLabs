@@ -68,6 +68,5 @@ dlsh.select_by_number(0)
 puts dlsh.get_selected
 
 
-puts(short_students[0].contact)
 puts(long_students[0].to_json)
 
