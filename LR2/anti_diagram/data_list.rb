@@ -25,13 +25,29 @@ class DataList
     self.objects_list = []
   end
 
+  #шаблон
+  def get_data
+    result = []
+    count = 0
+    objects_list.each { |object|
+      row = []
+      row<<count
+      row.push(*get_fields_datatable(object))
+      result<<row
+      count+=1
+    }
+    DataTable.new(result)
+  end
+
   protected
   def get_names
     raise NotImplementedError, 'You should implement get_names when extend DataList'
   end
 
-  def get_data
-    raise NotImplementedError, 'You should implement get_data when extend DataList'
+
+  #это нужно переопределять в детях
+  def get_fields_datatable(object)
+    []
   end
 
   private

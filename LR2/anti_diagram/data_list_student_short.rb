@@ -10,19 +10,10 @@ class DataListStudentShort < DataList
   def get_names
     ["short_fio", "git", "contact"]
   end
-  def get_data
-    result = []
-    count = 0
-    objects_list.each { |object|
-      row = []
-      row<<count
-      row<<object.short_fio
-      row<<object.git
-      row<<object.contact
-      result<<row
-      count+=1
-    }
-    DataTable.new(result)
+
+  protected
+  def get_fields_datatable(object)
+    [object.short_fio, object.git, object.contact]
   end
 
 end
