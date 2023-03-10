@@ -98,13 +98,15 @@ abstract class DataList{
     +select_by_number(Integer)
     +get_selected(): Array<Integer>
     +clear_selected()
-    #get_names
-    #get_data
+    +get_data(): DataTable
+    #get_names()
+    #get_fields_datatable(objects)
+
     __
     -objects_list: Array
     -selected_objects: Array
     __
-    -objects_list: Array
+    +objects_list: Array
     -selected_objects: Array
 }
 
@@ -112,13 +114,7 @@ class DataListStudentShort extends DataList{
     --
     +initialize(Array)
     +get_names(): DataTable
-    +get_data(): Array<String>
-    --
-    -objects_list: Array
-    -selected_objects: Array
-    __
-    -objects_list: Array
-    -selected_objects: Array
+    #get_fields_datatable(): Array<String>
 }
 
 
