@@ -32,17 +32,14 @@ abstract class StudentBase {
 }
 class StudentShort extends StudentBase {
     -short_fio: String
-    -contact: Hash
     --
     +{static}from_student(Student): StudentShort
     +initialize(id,info_short): StudentShort
     +to_s(): String
     --
     +short_fio:String
-    +contact: Hash
     --
     -short_fio
-    -contact
 }
 class Student extends StudentBase{
     -last_name: String
