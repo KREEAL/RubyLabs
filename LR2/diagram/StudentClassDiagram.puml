@@ -49,7 +49,7 @@ class Student extends StudentBase{
     +{static}from_json(String): Student
     +initialize(String, String, String, Hash)
     +set_contacts(Hash)
-    +short_info(): String
+    +short_fio():String
     +info_short():String
     +to_s(): String
     +to_json(): String
