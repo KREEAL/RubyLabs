@@ -1,0 +1,35 @@
+
+{
+  "ObjList": [
+    {
+      "last_name": "Ivanov",
+      "first_name": "Ivan",
+      "dadname": "Ivanovich",
+      "telephone": "+7964926582",
+      "telegram": "VanyaPro",
+      "git":"gitshub1",
+      "mail": "vanyavanyavanya1@mail.ru",
+      "id":11
+    },
+    {
+      "last_name": "Ivanov",
+      "first_name": "Ivan",
+      "dadname": "Ivanovich",
+      "telephone": "+7964926582",
+      "telegram": "VanyaPro",
+      "git":"gitshub2",
+      "mail": "vanyavanyavanya2@mail.ru",
+      "id":22
+    },
+    {
+      "last_name": "Ivanov",
+      "first_name": "Ivan",
+      "dadname": "Ivanovich",
+      "telephone": "+7964926582",
+      "telegram": "VanyaPro",
+      "git":"gitshub3",
+      "mail": "vanyavanyavanya3@mail.ru",
+      "id":33
+    }
+  ]
+}
