@@ -4,7 +4,7 @@ require_relative 'student_short'
 require_relative 'data_table'
 require_relative 'data_list'
 require_relative 'data_list_student_short'
-require_relative 'student_list_json'
+require_relative 'students_list_json'
 
 #я знаю. Не клин фанкшн. Просто для проверки тут лежит
 def show_data_table(datatable)
@@ -54,5 +54,14 @@ print("\n")
 print(stljson.sort_students)
 print("\n")
 print(stljson.get_student_short_count)
+print("\n")
+stljson.remove_student(11)
+stljson.add_student(Student.new("Matcumoto","Yukihiro","Viktorovich",{git:"DadOfRuby",telegram:"RubyDad",id:5}))
+stljson.replace_student(22,Student.new("Tsvetkov","Kirill","Alexandrovich",{telephone:"+79649265792"}))
+stljson.write_to_file("./LR2/anti_diagram/students3.json")
 
+stljson.add_student(Student.new("Matcumotoo","Yukihiro","Viktorovich",{git:"DadOfRuby",telegram:"RubyDad",id:5}))
+stljson.add_student(Student.new("Matcumotooo","Yukihiro","Viktorovich",{git:"DadOfRuby",telegram:"RubyDad",id:5}))
+show_data_table(stljson.get_k_n_student_short_list(2,2).get_data)
 
+print(stljson.sort_students)
