@@ -114,14 +114,53 @@ class DataListStudentShort extends DataList{
     #get_fields_datatable(): Array<String>
 }
 
+abstract class StudentsListBase{
+    -students: Array
+    -serializer: <Serializer>
+    -gen_id: Integer
+    --
+    +initialize(<Serializer>)
+    +get_by_id(Integer)
+    +sort_students()
+    +get_student_short_count()
+    +get_k_n_student_short_list(Integer,Integer,List<StudentShort>)
+    +add_student(<Student>)
+    +replace_student(Integer,<Student>)
+    +remove_student(Integer)
+    +read_from_file(String)
+    +write_to_file(String)
+    -update_gen_id
+    --
+    -students(): Array
+    -serializer(): <Serializer>
+    -gen_id(): Integer
+    --
+    -students(): Array
+    +serializer(): <Serializer>
+    -gen_id(): Integer
+}
 
-struct main {
-    +{static}read_from_txt(String): List<Student>
-    +{static}write_to_txt(List<Student>,String):
-    +{static}show_data_table(DataTable):
+class StudentsListSerializer{
+    -initialize()
+    #serialize(String):
+    #deserialize(String):
+}
+
+class StudentsListJsonSerializer extends StudentsListSerializer{
+    +initialize()
+    +serialize(String):
+    +deserialize(String):
+}
+
+class StudentsListYamlSerializer extends StudentsListSerializer{
+    +initialize()
+    +serialize(String):
+    +deserialize(String):
 }
 
 
 
+
 DataList ..> DataTable
+StudentsListBase *-- StudentsListSerializer
 @enduml

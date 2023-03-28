@@ -5,8 +5,8 @@ require_relative 'student_short'
 require_relative 'data_table'
 require_relative 'data_list'
 require_relative 'data_list_student_short'
-require_relative 'students_list_json'
-require_relative 'students_list_yaml'
+require_relative 'students_list_json_serializer'
+require_relative 'students_list_yaml_serializer'
 
 
 #я знаю. Не клин фанкшн. Просто для проверки тут лежит
@@ -47,9 +47,9 @@ def show_data_table(datatable)
 
 #
 # stljson = StudentsListJson.new
-# stljson.read_from_file("./LR2/anti_diagram/students.json")
+# stljson.deserialize("./LR2/anti_diagram/students.json")
 # print(stljson.students)
-# stljson.write_to_file("./LR2/anti_diagram/students2.json")
+# stljson.serialize("./LR2/anti_diagram/students2.json")
 #
 # print("\n")
 # print(stljson.get_by_id(11))
@@ -61,7 +61,7 @@ def show_data_table(datatable)
 # stljson.remove_student(11)
 # stljson.add_student(Student.new("Matcumoto","Yukihiro","Viktorovich",{git:"DadOfRuby",telegram:"RubyDad",id:5}))
 # stljson.replace_student(22,Student.new("Tsvetkov","Kirill","Alexandrovich",{telephone:"+79649265792"}))
-# stljson.write_to_file("./LR2/anti_diagram/students3.json")
+# stljson.serialize("./LR2/anti_diagram/students3.json")
 #
 # stljson.add_student(Student.new("Matcumotoo","Yukihiro","Viktorovich",{git:"DadOfRuby",telegram:"RubyDad",id:5}))
 # stljson.add_student(Student.new("Matcumotooo","Yukihiro","Viktorovich",{git:"DadOfRuby",telegram:"RubyDad",id:5}))
@@ -72,15 +72,15 @@ def show_data_table(datatable)
 # stud322 = Student.new("Matcumotoo","Yukihiro","Viktorovich",{git:"DadOfRuby",telegram:"RubyDad",id:5})
 # stud332 = Student.new("Matcumoto","Yukihir","Viktorovic",{git:"DadOfRub",telegram:"RubyDad",id:6})
 # stud333 = Student.new("Matcumot","Yukihi","Viktorovi",{git:"DadOfRu",telegram:"RubyDa",id:7})
-# stlyaml = StudentsListYaml.new
+# stlyaml = StudentsListYamlSerializer.new
 # stlyaml.add_student(stud322)
 # stlyaml.add_student(stud332)
 # stlyaml.add_student(stud333)
 #
-# stlyaml.write_to_file("./LR2/anti_diagram/students.yaml")
+# stlyaml.serialize("./LR2/anti_diagram/students.yaml")
 # stlyaml.students = []
 #
-# stlyaml.read_from_file("./LR2/anti_diagram/students.yaml")
+# stlyaml.deserialize("./LR2/anti_diagram/students.yaml")
 # print(stlyaml.students)
 
 

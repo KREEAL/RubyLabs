@@ -1,10 +1,17 @@
 
-class StudentsListJson < StudentsListBase
-  def initialize
-    super
+class StudentsListJsonSerializer < StudentsListSerializer
+
+  public_class_method :new
+  def serialize(file_path)
+    students_list = self.students
+    json_string = '{"ObjList":['
+    students_list.each do |stud|
+      json_string+=stud.to_json+","
+    end
+    json_string = json_string.chop + "]}"
+    File.write(file_path,json_string)
   end
-  #must be unporetected from parent?
-  def read_from_file(file_path)
+  def deserialize(file_path)
     raise ArgumentError, "Путь к файлу указан неверно" unless File.exist?(file_path)
     badges = File.open(file_path, "r")
     doc = ""
@@ -23,14 +30,6 @@ class StudentsListJson < StudentsListBase
     update_gen_id
   end
 
-  def write_to_file(file_path)
-    students_list = self.students
-    json_string = '{"ObjList":['
-    students_list.each do |stud|
-      json_string+=stud.to_json+","
-    end
-    json_string = json_string.chop + "]}"
-    File.write(file_path,json_string)
-  end
+
 
 end

@@ -1,8 +1,9 @@
+require_relative 'students_list_serializer'
 class StudentsListBase
 
-  private_class_method :new
-  def initialize
+  def initialize(serializer)
     self.students = []
+    self.serilizer = serializer
     self.gen_id = 1
   end
   def get_by_id(object_id)
@@ -45,21 +46,25 @@ class StudentsListBase
   def remove_student(id_removed)
     self.students.reject! { |s| s.id == id_removed }
   end
-  #must be private?
-  def update_gen_id
-    self.gen_id = students.max_by(&:id).id + 1
+
+  def read_from_file(file_path)
+    serializer.deserialize(file_path)
+  end
+  def write_to_file(file_path)
+    serializer.serialize(file_path)
   end
 
-
   attr_accessor :students
+  attr_writer :serializer
 
 
   protected
 
-  def read_from_file(file_path)
-  end
-  def write_from_file(file_path)
-  end
 
   attr_accessor :gen_id
+  attr_reader :serializer
+  private
+  def update_gen_id
+    self.gen_id = students.max_by(&:id).id + 1
+  end
 end

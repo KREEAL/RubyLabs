@@ -1,12 +1,10 @@
 require_relative 'student'
 require 'yaml'
 
-class StudentsListYaml < StudentsListBaseBase
-  def initialize
-    super
-  end
+class StudentsListYamlSerializer < StudentsListSerializer
 
-  def write_to_file(file_path)
+  public_class_method :new
+  def serialize(file_path)
     begin
       yaml_string = YAML.dump(self.students)
       File.open(file_path, 'w') {|f| f.write(yaml_string) }
@@ -15,7 +13,7 @@ class StudentsListYaml < StudentsListBaseBase
     end
   end
 
-  def read_from_file(file_path)
+  def deserialize(file_path)
     begin
       yaml_string = File.read(file_path)
       students = YAML.load(yaml_string)
