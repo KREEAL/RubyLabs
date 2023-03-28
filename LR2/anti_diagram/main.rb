@@ -1,3 +1,4 @@
+require 'yaml'
 require_relative 'student'
 require_relative 'student_base'
 require_relative 'student_short'
@@ -5,6 +6,8 @@ require_relative 'data_table'
 require_relative 'data_list'
 require_relative 'data_list_student_short'
 require_relative 'students_list_json'
+require_relative 'students_list_yaml'
+
 
 #я знаю. Не клин фанкшн. Просто для проверки тут лежит
 def show_data_table(datatable)
@@ -65,3 +68,19 @@ stljson.add_student(Student.new("Matcumotooo","Yukihiro","Viktorovich",{git:"Dad
 show_data_table(stljson.get_k_n_student_short_list(2,2).get_data)
 
 print(stljson.sort_students)
+stud = stljson.get_by_id(11)
+stud322 = Student.new("Matcumotoo","Yukihiro","Viktorovich",{git:"DadOfRuby",telegram:"RubyDad",id:5})
+stud332 = Student.new("Matcumoto","Yukihir","Viktorovic",{git:"DadOfRub",telegram:"RubyDad",id:6})
+stud333 = Student.new("Matcumot","Yukihi","Viktorovi",{git:"DadOfRu",telegram:"RubyDa",id:7})
+stlyaml = StudentsListYaml.new
+stlyaml.add_student(stud322)
+stlyaml.add_student(stud332)
+stlyaml.add_student(stud333)
+
+stlyaml.write_to_file("./LR2/anti_diagram/students.yaml")
+stlyaml.students = []
+
+stlyaml.read_from_file("./LR2/anti_diagram/students.yaml")
+print(stlyaml.students)
+
+

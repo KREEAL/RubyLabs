@@ -85,4 +85,5 @@ class StudentBase
     @mail = new_mail
   end
 
+
 end

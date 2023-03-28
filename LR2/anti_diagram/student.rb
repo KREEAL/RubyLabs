@@ -1,6 +1,7 @@
 # frozen_string_literal: false
 
 require 'json'
+require 'yaml'
 require_relative 'student_base'
 class Student < StudentBase
   #снимает блокировку абстрактности от родителя
@@ -89,6 +90,7 @@ class Student < StudentBase
     grand_string += " git:#{@git}" unless @git.nil?
     grand_string
   end
+
 
 end
 
