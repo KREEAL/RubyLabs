@@ -45,42 +45,42 @@ def show_data_table(datatable)
 # puts(long_students[0].to_json)
 
 
-
-stljson = StudentsListJson.new
-stljson.read_from_file("./LR2/anti_diagram/students.json")
-print(stljson.students)
-stljson.write_to_file("./LR2/anti_diagram/students2.json")
-
-print("\n")
-print(stljson.get_by_id(11))
-print("\n")
-print(stljson.sort_students)
-print("\n")
-print(stljson.get_student_short_count)
-print("\n")
-stljson.remove_student(11)
-stljson.add_student(Student.new("Matcumoto","Yukihiro","Viktorovich",{git:"DadOfRuby",telegram:"RubyDad",id:5}))
-stljson.replace_student(22,Student.new("Tsvetkov","Kirill","Alexandrovich",{telephone:"+79649265792"}))
-stljson.write_to_file("./LR2/anti_diagram/students3.json")
-
-stljson.add_student(Student.new("Matcumotoo","Yukihiro","Viktorovich",{git:"DadOfRuby",telegram:"RubyDad",id:5}))
-stljson.add_student(Student.new("Matcumotooo","Yukihiro","Viktorovich",{git:"DadOfRuby",telegram:"RubyDad",id:5}))
-show_data_table(stljson.get_k_n_student_short_list(2,2).get_data)
-
-print(stljson.sort_students)
-stud = stljson.get_by_id(11)
-stud322 = Student.new("Matcumotoo","Yukihiro","Viktorovich",{git:"DadOfRuby",telegram:"RubyDad",id:5})
-stud332 = Student.new("Matcumoto","Yukihir","Viktorovic",{git:"DadOfRub",telegram:"RubyDad",id:6})
-stud333 = Student.new("Matcumot","Yukihi","Viktorovi",{git:"DadOfRu",telegram:"RubyDa",id:7})
-stlyaml = StudentsListYaml.new
-stlyaml.add_student(stud322)
-stlyaml.add_student(stud332)
-stlyaml.add_student(stud333)
-
-stlyaml.write_to_file("./LR2/anti_diagram/students.yaml")
-stlyaml.students = []
-
-stlyaml.read_from_file("./LR2/anti_diagram/students.yaml")
-print(stlyaml.students)
+#
+# stljson = StudentsListJson.new
+# stljson.read_from_file("./LR2/anti_diagram/students.json")
+# print(stljson.students)
+# stljson.write_to_file("./LR2/anti_diagram/students2.json")
+#
+# print("\n")
+# print(stljson.get_by_id(11))
+# print("\n")
+# print(stljson.sort_students)
+# print("\n")
+# print(stljson.get_student_short_count)
+# print("\n")
+# stljson.remove_student(11)
+# stljson.add_student(Student.new("Matcumoto","Yukihiro","Viktorovich",{git:"DadOfRuby",telegram:"RubyDad",id:5}))
+# stljson.replace_student(22,Student.new("Tsvetkov","Kirill","Alexandrovich",{telephone:"+79649265792"}))
+# stljson.write_to_file("./LR2/anti_diagram/students3.json")
+#
+# stljson.add_student(Student.new("Matcumotoo","Yukihiro","Viktorovich",{git:"DadOfRuby",telegram:"RubyDad",id:5}))
+# stljson.add_student(Student.new("Matcumotooo","Yukihiro","Viktorovich",{git:"DadOfRuby",telegram:"RubyDad",id:5}))
+# show_data_table(stljson.get_k_n_student_short_list(2,2).get_data)
+#
+# print(stljson.sort_students)
+# stud = stljson.get_by_id(11)
+# stud322 = Student.new("Matcumotoo","Yukihiro","Viktorovich",{git:"DadOfRuby",telegram:"RubyDad",id:5})
+# stud332 = Student.new("Matcumoto","Yukihir","Viktorovic",{git:"DadOfRub",telegram:"RubyDad",id:6})
+# stud333 = Student.new("Matcumot","Yukihi","Viktorovi",{git:"DadOfRu",telegram:"RubyDa",id:7})
+# stlyaml = StudentsListYaml.new
+# stlyaml.add_student(stud322)
+# stlyaml.add_student(stud332)
+# stlyaml.add_student(stud333)
+#
+# stlyaml.write_to_file("./LR2/anti_diagram/students.yaml")
+# stlyaml.students = []
+#
+# stlyaml.read_from_file("./LR2/anti_diagram/students.yaml")
+# print(stlyaml.students)
 
 
