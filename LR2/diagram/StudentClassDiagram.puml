@@ -128,7 +128,7 @@ abstract class StudentsListBase{
     +replace_student(Integer,<Student>)
     +remove_student(Integer)
     +read_from_file(String)
-    +write_to_file(String)
+    +write_to_file(String,Array<Student>)
     -update_gen_id
     --
     -students(): Array
@@ -142,26 +142,26 @@ abstract class StudentsListBase{
 
 class StudentsListSerializer{
     -initialize()
-    #serialize(String):
+    #serialize(String,Array<Students>):
     #deserialize(String):
 }
 
 class StudentsListJsonSerializer extends StudentsListSerializer{
     +initialize()
-    +serialize(String):
-    +deserialize(String):
+    +serialize(String,Array<Student>):
+    +deserialize(String):Array<Student>
 }
 
 class StudentsListYamlSerializer extends StudentsListSerializer{
     +initialize()
-    +serialize(String):
-    +deserialize(String):
+    +serialize(String,Array<Student>):
+    +deserialize(String):Array<Student>
 }
 
 class StudentsListXmlSerializer extends StudentsListSerializer{
     +initialize()
-    +serialize(String):
-    +deserialize(String):
+    +serialize(String,Array<Student>):
+    +deserialize(String): Array<Student>
 }
 
 

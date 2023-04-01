@@ -1,12 +1,13 @@
 require_relative 'student'
 require 'yaml'
+require_relative 'students_list_serializer'
 
 class StudentsListYamlSerializer < StudentsListSerializer
 
   public_class_method :new
-  def serialize(file_path)
+  def serialize(file_path,students_given)
     begin
-      yaml_string = YAML.dump(self.students)
+      yaml_string = YAML.dump(students_given)
       File.open(file_path, 'w') {|f| f.write(yaml_string) }
     rescue StandardError => e
       puts "Error exporting students list: #{e.message}"
@@ -18,8 +19,7 @@ class StudentsListYamlSerializer < StudentsListSerializer
       yaml_string = File.read(file_path)
       students = YAML.load(yaml_string)
       print students
-      self.students = students
-      update_gen_id
+      students
     rescue StandardError => e
       puts "Error exporting students list: #{e.message}"
     end

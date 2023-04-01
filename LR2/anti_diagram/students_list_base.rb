@@ -3,7 +3,7 @@ class StudentsListBase
 
   def initialize(serializer)
     self.students = []
-    self.serilizer = serializer
+    self.serializer = serializer
     self.gen_id = 1
   end
   def get_by_id(object_id)
@@ -48,10 +48,11 @@ class StudentsListBase
   end
 
   def read_from_file(file_path)
-    serializer.deserialize(file_path)
+    self.students = serializer.deserialize(file_path)
+    update_gen_id
   end
-  def write_to_file(file_path)
-    serializer.serialize(file_path)
+  def write_to_file(file_path,students_given)
+    serializer.serialize(file_path,students_given)
   end
 
   attr_accessor :students

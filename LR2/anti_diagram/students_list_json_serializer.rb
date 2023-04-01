@@ -1,9 +1,10 @@
-
+require_relative 'students_list_serializer'
+require 'json'
 class StudentsListJsonSerializer < StudentsListSerializer
 
   public_class_method :new
-  def serialize(file_path)
-    students_list = self.students
+  def serialize(file_path,students_given)
+    students_list = students_given
     json_string = '{"ObjList":['
     students_list.each do |stud|
       json_string+=stud.to_json+","
@@ -26,8 +27,9 @@ class StudentsListJsonSerializer < StudentsListSerializer
     objlist["ObjList"].each do |obj|
       students_list << Student.from_json(obj.to_json)
     end
-    self.students = students_list
-    update_gen_id
+    # self.students = students_list
+    students_list
+
   end
 
 

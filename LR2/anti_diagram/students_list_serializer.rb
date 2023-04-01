@@ -1,6 +1,6 @@
 class StudentsListSerializer
   private_class_method :new
-  def serialize(file_path)
+  def serialize(file_path,students_given)
     raise NotImplementedError, "You must implement the serialize method"
   end
 
