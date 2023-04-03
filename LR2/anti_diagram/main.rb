@@ -1,15 +1,15 @@
 require 'yaml'
-require_relative 'student'
-require_relative 'student_base'
-require_relative 'student_short'
-require_relative 'data_table'
-require_relative 'data_list'
-require_relative 'data_list_student_short'
-require_relative 'students_list_json_serializer'
-require_relative 'students_list_yaml_serializer'
-require_relative 'students_list_xml_serializer'
-require_relative 'students_list_serializer'
-require_relative 'students_list_base'
+require_relative 'models/student'
+require_relative 'models/student_base'
+require_relative 'models/student_short'
+require_relative 'containers/data_table'
+require_relative 'containers/data_list'
+require_relative 'containers/data_list_student_short'
+require_relative 'serializers/students_list_json_serializer'
+require_relative 'serializers/students_list_yaml_serializer'
+require_relative 'serializers/students_list_xml_serializer'
+require_relative 'serializers/students_list_serializer'
+require_relative 'containers/st_base'
 
 
 #я знаю. Не клин фанкшн. Просто для проверки тут лежит
@@ -87,8 +87,8 @@ def show_data_table(datatable)
 # print(stlyaml.students)
 
 
-abd = StudentsListBase.new(StudentsListJsonSerializer.new)
-abd.read_from_file("./LR2/anti_diagram/students.json")
-print(abd.get_k_n_student_short_list(1,2))
-abd.write_to_file("./LR2/anti_diagram/students2.json",abd.students)
+# abd = StudentsListBase.new(StudentsListJsonSerializer.new)
+# abd.read_from_file("./LR2/anti_diagram/students.json")
+# abd.serializer = StudentsListYamlSerializer.new
+# abd.write_to_file("./LR2/anti_diagram/students.yaml",abd.students)
 

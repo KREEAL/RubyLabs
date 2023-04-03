@@ -1,4 +1,4 @@
-require_relative 'student'
+require_relative 'models/ls/student'
 require 'yaml'
 require_relative 'students_list_serializer'
 

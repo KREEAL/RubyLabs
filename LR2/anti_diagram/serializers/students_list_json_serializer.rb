@@ -1,4 +1,4 @@
-require_relative 'students_list_serializer'
+require_relative '../dents_list_serializer'
 require 'json'
 class StudentsListJsonSerializer < StudentsListSerializer
 

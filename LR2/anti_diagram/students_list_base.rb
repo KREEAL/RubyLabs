@@ -1,4 +1,4 @@
-require_relative 'students_list_serializer'
+require_relative 'serializers/rs/students_list_serializer'
 class StudentsListBase
 
   def initialize(serializer)
