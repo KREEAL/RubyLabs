@@ -108,4 +108,6 @@ db.replace_student(3,studd)
 puts(db.student_count)
 studd2 = db.student_by_id(2)
 puts "\n"
-puts(studd2)
+# puts(studd2)
+studds_ = db.get_k_n_student_short_list(1,2)
+puts(studds_)

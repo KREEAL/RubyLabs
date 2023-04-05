@@ -15,6 +15,13 @@ class StudentsListDB
 
   end
 
+  def get_k_n_student_short_list(k,n)
+    self.client.results_as_hash = true
+    students = client.prepare('SELECT * FROM student LIMIT ? OFFSET ?').execute((k-1)*n,n)
+    slice = students.map { |h| StudentShort.from_student(Student.from_hash(h)) }
+    self.client.results_as_hash = false
+    DataListStudentShort.new(slice)
+  end
 
   def add_student(student)
     stmt = client.prepare('insert into student (first_name, last_name, dadname, telephone, telegram, mail, git) VALUES (?, ?, ?, ?, ?, ?, ?)')
