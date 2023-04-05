@@ -10,6 +10,7 @@ require_relative 'containers/data_list_student_short'
 # require_relative 'serializers/students_list_xml_serializer'
 # require_relative 'serializers/students_list_serializer'
 require 'sqlite3'
+require_relative 'repositories/students_list_DB'
 
 #я знаю. Не клин фанкшн. Просто для проверки тут лежит
 def show_data_table(datatable)
@@ -90,12 +91,21 @@ def show_data_table(datatable)
 # abd.read_from_file("./LR2/anti_diagram/students.json")
 # abd.serializer = StudentsListYamlSerializer.new
 # abd.write_to_file("./LR2/anti_diagram/students.yaml",abd.students)
-
-db = SQLite3::Database.open 'D:/RubyMineProjects/University/university.db'
-# db.results_as_hash = true
-stm = db.prepare "Select * from student"
-results = stm.execute
-results.each { |row| puts row.join "\s" }
-
-
-
+#
+# db = SQLite3::Database.open 'D:/RubyMineProjects/University/university.db'
+# # db.results_as_hash = true
+# stm = db.prepare "Select * from student"
+# results = stm.execute
+db = StudentsListDB.new'D:/RubyMineProjects/University/university.db'
+puts(db.student_count)
+db.remove_student(4)
+puts(db.student_count)
+studd = Student.new("Matcumoto","Yukihiro","Viktorovich",{git:"DadOfRuby",telegram:"RubyDad",id:5})
+# пока тестил, надобавлялось много)))
+# db.add_student(studd)
+# puts(db.student_count)
+db.replace_student(3,studd)
+puts(db.student_count)
+studd2 = db.student_by_id(2)
+puts "\n"
+puts(studd2)

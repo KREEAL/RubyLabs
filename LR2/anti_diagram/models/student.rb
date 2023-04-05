@@ -26,6 +26,16 @@ class Student < StudentBase
     Student.new(last_name,first_name,dadname,parsed.transform_keys(&:to_sym))
   end
 
+  def self.from_hash(hash)
+    last_name = hash["last_name"]
+    first_name = hash["first_name"]
+    dadname = hash["dadname"]
+    hash.delete(:last_name)
+    hash.delete(:first_name)
+    hash.delete(:dadname)
+
+    Student.new(last_name, first_name, dadname, hash.transform_keys(&:to_sym))
+  end
 
   # Распривачиваем все, что запривачено
   public :telephone, :telegram, :mail, 'id=', 'telephone=', 'telegram=', 'mail=', 'git='

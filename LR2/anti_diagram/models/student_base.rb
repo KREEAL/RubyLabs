@@ -1,4 +1,5 @@
 require 'json'
+
 class StudentBase
   #необходимо для того, чтобы студентбазе был абстрактным классом
   private_class_method :new
