@@ -1,8 +1,8 @@
 
 class StudentsListDB
 
-  def initialize(db_file_path)
-    self.client = SQLite3::Database.open db_file_path
+  def initialize
+    self.client = DBUniversity.instance
   end
 
   def student_by_id(student_id)
