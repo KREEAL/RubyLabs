@@ -96,11 +96,11 @@ def show_data_table(datatable)
 # # db.results_as_hash = true
 # stm = db.prepare "Select * from student"
 # results = stm.execute
-db = StudentsListDB.new'D:/RubyMineProjects/University/university.db'
+db = StudentsListDB.new
 puts(db.student_count)
-db.remove_student(4)
+db.remove_student(10)
 puts(db.student_count)
-studd = Student.new("Matcumoto","Yukihiro","Viktorovich",{git:"DadOfRuby",telegram:"RubyDad",id:5})
+studd = Student.new("Matcumotooooooooooooooo","Yukihiro","Viktorovich",{git:"DadOfRuby",telegram:"RubyDad",id:5})
 # пока тестил, надобавлялось много)))
 # db.add_student(studd)
 # puts(db.student_count)

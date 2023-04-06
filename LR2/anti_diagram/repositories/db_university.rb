@@ -4,6 +4,7 @@ class DBUniversity
 
   def initialize
     @client = SQLite3::Database.open 'D:/RubyMineProjects/University/university.db'
+    @client.results_as_hash = true
   end
 
   def self.instance
@@ -14,5 +15,14 @@ class DBUniversity
     end
     @instance
   end
+
+  def prepare_exec(statement, *params)
+    @client.prepare(statement).execute(*params)
+  end
+
+  def query(statement)
+    @client.query(statement)
+  end
+
 
 end

@@ -1,4 +1,4 @@
-
+require_relative 'db_university'
 class StudentsListDB
 
   def initialize
@@ -6,20 +6,30 @@ class StudentsListDB
   end
 
   def student_by_id(student_id)
-    client.results_as_hash = true
-    hash = client.prepare('SELECT * FROM student WHERE id = ?').execute(student_id).first
-    client.results_as_hash = false
+
+
+    hash = client.prepare_exec('SELECT * FROM student WHERE id = ?',student_id).first
+    print(hash)
     return nil if hash.nil?
 
     Student.from_hash(hash)
+    #
+    #
+    # self.client.toggle_results_as_hash
+    # hash = client.prepare_exec('SELECT * FROM student WHERE id = ?', student_id).first
+    # self.client.toggle_results_as_hash
+    # return nil if hash.nil?
+    #
+    # Student.from_hash(hash)
+
 
   end
 
   def get_k_n_student_short_list(k,n)
-    self.client.results_as_hash = true
-    students = client.prepare('SELECT * FROM student LIMIT ? OFFSET ?').execute((k-1)*n,n)
+
+    students = client.prepare_exec('SELECT * FROM student LIMIT ? OFFSET ?',(k-1)*n,n)
     slice = students.map { |h| StudentShort.from_student(Student.from_hash(h)) }
-    self.client.results_as_hash = false
+
     DataListStudentShort.new(slice)
   end
 
@@ -30,18 +40,20 @@ class StudentsListDB
   end
 
   def remove_student(student_id)
-    stmt = self.client.prepare('DELETE FROM student WHERE id = ?')
-    stmt.execute(student_id)
+    client.prepare_exec('DELETE FROM student WHERE id = ?', student_id)
   end
 
   def replace_student(student_id, student)
-    stmt = client.prepare('UPDATE student SET first_name=?, last_name=?, dadname=?, telephone=?, telegram=?, mail=?, git=? WHERE id=?')
-    stmt.execute(*student_fields(student), student_id)
+    # stmt = client.prepare('UPDATE student SET first_name=?, last_name=?, dadname=?, telephone=?, telegram=?, mail=?, git=? WHERE id=?')
+    # stmt.execute(*student_fields(student), student_id)
+
+    template = 'UPDATE student SET first_name=?, last_name=?, dadname=?, telephone=?, telegram=?, mail=?, git=? WHERE id=?'
+    client.prepare_exec(template, *student_fields(student), student_id)
+
   end
 
   def student_count
-    stm = self.client.prepare "Select COUNT(id) from student"
-    stm.execute.next[0]
+    client.query('SELECT COUNT(id) FROM student').next[0]
   end
 
 
