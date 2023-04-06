@@ -164,8 +164,35 @@ class StudentsListXmlSerializer extends StudentsListSerializer{
     +deserialize(String): Array<Student>
 }
 
+class DBUniversity {
+    -instance_mutex: Mutex
+    -instance: DBUniversity
+    -client: SQLite3::
+    --
+    {static}instance(): DBUniversity
+    -initialize()
+    +prepare_exec(String, *Object): SQLite3::ResultSet
+    +query(String): SQLite3::ResultSet
+}
+class StudentsListDB {
+    -db: DBUniversity
+    --
+    +initialize()
+    +student_by_id(Integer): Student
+    +paginated_short_students(Integer, Integer): DataListStudentShort
+    +add_student(Student): Integer
+    +replace_student(Integer, Student)
+    +remove_student(Integer)
+    +student_count(): Integer
+    --
+    -db(): DBUniversity
+    --
+    -db=(DBUniversity)
+}
+
 
 
 DataList ..> DataTable
 StudentsListBase *-- StudentsListSerializer
+StudentsListDB o-- DBUniversity
 @enduml

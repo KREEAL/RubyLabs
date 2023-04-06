@@ -24,5 +24,4 @@ class DBUniversity
     @client.query(statement)
   end
 
-
 end

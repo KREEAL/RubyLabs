@@ -13,15 +13,6 @@ class StudentsListDB
     return nil if hash.nil?
 
     Student.from_hash(hash)
-    #
-    #
-    # self.client.toggle_results_as_hash
-    # hash = client.prepare_exec('SELECT * FROM student WHERE id = ?', student_id).first
-    # self.client.toggle_results_as_hash
-    # return nil if hash.nil?
-    #
-    # Student.from_hash(hash)
-
 
   end
 
