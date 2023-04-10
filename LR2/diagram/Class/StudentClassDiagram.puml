@@ -123,7 +123,7 @@ abstract class StudentsListBase{
     +get_by_id(Integer)
     +sort_students()
     +get_student_short_count()
-    +get_k_n_student_short_list(Integer,Integer,List<StudentShort>)
+    +get_k_n_student_short_list(Integer,Integer,List<StudentShort>): DataListStudentShort
     +add_student(<Student>)
     +replace_student(Integer,<Student>)
     +remove_student(Integer)
@@ -195,4 +195,5 @@ class StudentsListDB {
 DataList ..> DataTable
 StudentsListBase *-- StudentsListSerializer
 StudentsListDB o-- DBUniversity
+DataListStudentShort ..> StudentShort
 @enduml
