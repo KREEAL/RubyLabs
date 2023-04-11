@@ -1,13 +1,11 @@
-require_relative 'db_university'
-class StudentsListDB
+require_relative 'C:\Users\kirya\RubymineProjects\RubyLabs\LR2\anti_diagram\repositories\data_sources\db_university.rb'
+class DBSourceAdapter
 
   def initialize
     self.client = DBUniversity.instance
   end
 
-  def student_by_id(student_id)
-
-
+  def get_by_id(student_id)
     hash = client.prepare_exec('SELECT * FROM student WHERE id = ?',student_id).first
     print(hash)
     return nil if hash.nil?
@@ -16,7 +14,7 @@ class StudentsListDB
 
   end
 
-  def get_k_n_student_short_list(k,n)
+  def get_k_n_student_short_list(k,n,existing_list = nil)
 
     students = client.prepare_exec('SELECT * FROM student LIMIT ? OFFSET ?',(k-1)*n,n)
     slice = students.map { |h| StudentShort.from_student(Student.from_hash(h)) }
@@ -25,8 +23,8 @@ class StudentsListDB
   end
 
   def add_student(student)
-    stmt = client.prepare('insert into student (first_name, last_name, dadname, telephone, telegram, mail, git) VALUES (?, ?, ?, ?, ?, ?, ?)')
-    stmt.execute(*student_fields(student))
+    stmt = client.prepare_exec('insert into student (first_name, last_name, dadname, telephone, telegram, mail, git) VALUES (?, ?, ?, ?, ?, ?, ?)',*student_fields(student))
+    # stmt.execute(*student_fields(student))
     self.client.query('SELECT seq from sqlite_sequence where name = "student"').first.first[1]
   end
 
@@ -43,7 +41,7 @@ class StudentsListDB
 
   end
 
-  def student_count
+  def get_student_short_count
     client.query('SELECT COUNT(id) FROM student').next[0]
   end
 

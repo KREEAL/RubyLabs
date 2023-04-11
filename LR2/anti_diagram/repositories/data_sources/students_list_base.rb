@@ -1,4 +1,4 @@
-require_relative 'serializers/rs/students_list_serializer'
+require_relative 'C:\Users\kirya\RubymineProjects\RubyLabs\LR2\anti_diagram\repositories\serializers\students_list_serializer.rb'
 class StudentsListBase
 
   def initialize(serializer)
@@ -18,7 +18,7 @@ class StudentsListBase
     students.count
   end
 
-  def get_k_n_student_short_list(k,n,existing_short_data_list:nil)
+  def get_k_n_student_short_list(k,n,existing_short_data_list = nil)
     sliced_list = students[((k-1)*n),n].map{|s| StudentShort.from_student(s)}
     #собсна, если нам не дали даталист
     if existing_short_data_list.nil?
@@ -32,10 +32,18 @@ class StudentsListBase
     student.id = gen_id
     self.students << student
     self.gen_id = gen_id+1
+    student.id
   end
 
   def replace_student(id_replaced,student)
-    index_replaced = students.find_index { |s| s.id == id_replaced}
+    index_replaced = 0
+    (0..self.students.length).each { |i|
+      if self.students[i].class != NilClass
+        if self.students[i].id == id_replaced
+          index_replaced = i
+        end
+      end
+    }
     if student.id.nil?
       student.id= self.gen_id
       update_gen_id

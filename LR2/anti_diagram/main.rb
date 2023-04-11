@@ -5,12 +5,16 @@ require_relative 'models/student_short'
 require_relative 'containers/data_table'
 require_relative 'containers/data_list'
 require_relative 'containers/data_list_student_short'
-# require_relative 'serializers/students_list_json_serializer'
-# require_relative 'serializers/students_list_yaml_serializer'
-# require_relative 'serializers/students_list_xml_serializer'
-# require_relative 'serializers/students_list_serializer'
+require_relative 'repositories/serializers/students_list_json_serializer'
+require_relative 'repositories/serializers/students_list_yaml_serializer'
+require_relative 'repositories/serializers/students_list_xml_serializer'
+require_relative 'repositories/serializers/students_list_serializer'
+require_relative 'repositories/data_sources/students_list_base'
+require_relative 'repositories/adapters/db_source_adapter'
+require_relative 'repositories/adapters/file_source_adapter'
+require_relative 'repositories/students_repository'
+
 require 'sqlite3'
-require_relative 'repositories/students_list_DB'
 
 #я знаю. Не клин фанкшн. Просто для проверки тут лежит
 def show_data_table(datatable)
@@ -21,93 +25,41 @@ def show_data_table(datatable)
     end
     puts resultrow
   end
-  end
+end
+
+def test_repository(student_rep)
+  puts "В репозитории #{student_rep.student_count} студентов."
+  puts "Студент с id=1: #{student_rep.student_by_id(1)}"
+  test_student = Student.new("Matcumotoo","Yukihiro","Viktorovich",{git:"DadOfRuby",telegram:"RubyDad",id:5})
+  puts "Добавляем студента: #{test_student}"
+  added_id = student_rep.add_student(test_student)
+  puts "Добавили. Теперь студентов #{student_rep.student_count}. Его id: #{added_id}. Пробуем получить: "
+  puts student_rep.student_by_id(added_id)
+  test_student.telegram = 'new_telegram'
+  puts test_student.telegram
+  student_rep.replace_student(added_id, test_student)
+  puts 'Заменяем телеграм студента...'
+  student_rep.replace_student(added_id, test_student)
+  puts student_rep.student_by_id(added_id)
+  puts "Удаляем студента с id=#{added_id}..."
+  student_rep.remove_student(added_id)
+  puts "Удалили. Теперь студентов #{student_rep.student_count}"
+  puts 'Тест k_n_students: '
+  puts 'Страница 1:'
+  puts student_rep.get_k_n_student_short_list(1, 3)
+  puts 'Страница 2:'
+  puts student_rep.get_k_n_student_short_list(2, 3)
 
 
-# long_students = read_from_txt('./LR2/anti_diagram/students.txt')
-#
-# short_students = []
-#
-# long_students.each do |student|
-#   short_students << StudentShort.from_student(student)
-# end
-#
-#
-# dlsh = DataListStudentShort.new(short_students)
-#
-#
-#
-# show_data_table(dlsh.get_data)
-#
-# dlsh.select_by_number(1)
-# dlsh.select_by_number(2)
-# dlsh.select_by_number(0)
-# dlsh.select_by_number(0)
-#
-# puts dlsh.get_selected
-# puts(long_students[0].to_json)
+end
+
+puts
+puts '=> Тест StudentRepository (JSON) <='
+rep_json = StudentRepository.new(FileSourceAdapter.new(StudentsListJsonSerializer.new, 'C:\Users\kirya\RubymineProjects\RubyLabs\LR2\anti_diagram\data_files\students.json'))
+test_repository(rep_json)
 
 
-#
-# stljson = StudentsListJson.new
-# stljson.deserialize("./LR2/anti_diagram/students.json")
-# print(stljson.students)
-# stljson.serialize("./LR2/anti_diagram/students2.json")
-#
-# print("\n")
-# print(stljson.get_by_id(11))
-# print("\n")
-# print(stljson.sort_students)
-# print("\n")
-# print(stljson.get_student_short_count)
-# print("\n")
-# stljson.remove_student(11)
-# stljson.add_student(Student.new("Matcumoto","Yukihiro","Viktorovich",{git:"DadOfRuby",telegram:"RubyDad",id:5}))
-# stljson.replace_student(22,Student.new("Tsvetkov","Kirill","Alexandrovich",{telephone:"+79649265792"}))
-# stljson.serialize("./LR2/anti_diagram/students3.json")
-#
-# stljson.add_student(Student.new("Matcumotoo","Yukihiro","Viktorovich",{git:"DadOfRuby",telegram:"RubyDad",id:5}))
-# stljson.add_student(Student.new("Matcumotooo","Yukihiro","Viktorovich",{git:"DadOfRuby",telegram:"RubyDad",id:5}))
-# show_data_table(stljson.get_k_n_student_short_list(2,2).get_data)
-#
-# print(stljson.sort_students)
-# stud = stljson.get_by_id(11)
-# stud322 = Student.new("Matcumotoo","Yukihiro","Viktorovich",{git:"DadOfRuby",telegram:"RubyDad",id:5})
-# stud332 = Student.new("Matcumoto","Yukihir","Viktorovic",{git:"DadOfRub",telegram:"RubyDad",id:6})
-# stud333 = Student.new("Matcumot","Yukihi","Viktorovi",{git:"DadOfRu",telegram:"RubyDa",id:7})
-# stlyaml = StudentsListYamlSerializer.new
-# stlyaml.add_student(stud322)
-# stlyaml.add_student(stud332)
-# stlyaml.add_student(stud333)
-#
-# stlyaml.serialize("./LR2/anti_diagram/students.yaml")
-# stlyaml.students = []
-#
-# stlyaml.deserialize("./LR2/anti_diagram/students.yaml")
-# print(stlyaml.students)
-
-
-# abd = StudentsListBase.new(StudentsListJsonSerializer.new)
-# abd.read_from_file("./LR2/anti_diagram/students.json")
-# abd.serializer = StudentsListYamlSerializer.new
-# abd.write_to_file("./LR2/anti_diagram/students.yaml",abd.students)
-#
-# db = SQLite3::Database.open 'D:/RubyMineProjects/University/university.db'
-# # db.results_as_hash = true
-# stm = db.prepare "Select * from student"
-# results = stm.execute
-db = StudentsListDB.new
-puts(db.student_count)
-db.remove_student(10)
-puts(db.student_count)
-studd = Student.new("Matcumotooooooooooooooo","Yukihiro","Viktorovich",{git:"DadOfRuby",telegram:"RubyDad",id:5})
-# пока тестил, надобавлялось много)))
-# db.add_student(studd)
-# puts(db.student_count)
-db.replace_student(3,studd)
-puts(db.student_count)
-studd2 = db.student_by_id(2)
-puts "\n"
-# puts(studd2)
-studds_ = db.get_k_n_student_short_list(1,2)
-puts(studds_)
+puts
+puts '=> Тест StudentRepository (DB) <='
+rep_yaml = StudentRepository.new(DBSourceAdapter.new)
+test_repository(rep_yaml)

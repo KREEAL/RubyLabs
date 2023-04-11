@@ -174,7 +174,7 @@ class DBUniversity {
     +prepare_exec(String, *Object): SQLite3::ResultSet
     +query(String): SQLite3::ResultSet
 }
-class StudentsListDB {
+class DBSourceAdapter {
     -db: DBUniversity
     --
     +initialize()
@@ -190,10 +190,40 @@ class StudentsListDB {
     -db=(DBUniversity)
 }
 
+class StudentRepository {
+    -data_source_adapter
+    --
+    +initialize(data_source_adapter)
+    +student_by_id(Integer): Student
+    +get_k_n_student_short_list(Integer, Integer, DataList=nil): DataList
+    +add_student(Student): Integer
+    +replace_student(Integer, Student)
+    +remove_student(Integer)
+    +student_count(): Integer
+}
+
+class FileSourceAdapter {
+    -file_path: String
+    -file_source: FileDataSource
+    --
+    +initialize(DataTransformerBase, String)
+    +get_by_id(Integer): Student
+    +get_k_n_student_short_list(Integer, Integer, DataList=nil): DataList
+    +add_student(Student): Integer
+    +replace_student(Integer, Student)
+    +remove_student(Integer)
+    +get_student_short_count(): Integer
+}
 
 
 DataList ..> DataTable
 StudentsListBase *-- StudentsListSerializer
-StudentsListDB o-- DBUniversity
 DataListStudentShort ..> StudentShort
+
+DBSourceAdapter o-- DBUniversity
+StudentRepository *-- DBSourceAdapter
+StudentRepository *-- FileSourceAdapter
+
+FileSourceAdapter o-- StudentsListBase
+StudentsListBase ..> DataListStudentShort
 @enduml

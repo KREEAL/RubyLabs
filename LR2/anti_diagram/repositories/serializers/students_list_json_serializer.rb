@@ -1,4 +1,4 @@
-require_relative '../dents_list_serializer'
+require_relative 'C:\Users\kirya\RubymineProjects\RubyLabs\LR2\anti_diagram\repositories\serializers\students_list_serializer.rb'
 require 'json'
 class StudentsListJsonSerializer < StudentsListSerializer
 
