@@ -1,31 +1,35 @@
 require 'glimmer-dsl-libui'
-class TabStudents
-  include Glimmer::LibUI::CustomControl
+require_relative 'C:\Users\kirya\RubymineProjects\RubyLabs\LR2\anti_diagram\controllers\tab_students_controller.rb'
 
-  body {
-    horizontal_box {
+class TabStudents
+  include Glimmer
+
+  def initialize
+    @controller = TabStudentsController.new(self)
+  end
+
+  def on_create
+
+  end
+
+  def create
+    root_container = horizontal_box {
       # Секция 1
       vertical_box {
         stretchy false
-
         form {
           stretchy false
-
           @filter_last_name_initials = entry {
             label 'Фамилия И. О.'
           }
-
           @filters = {}
-          fields = [[:git, 'Гит'], [:mail, 'Почта'], [:telephone, 'Телефон'], [:telegram, 'Телеграм']]
-
+          fields = [[:git, 'Гит'], [:email, 'Почта'], [:phone, 'Телефон'], [:telegram, 'Телеграм']]
           fields.each do |field|
             @filters[field[0]] = {}
-
             @filters[field[0]][:combobox] = combobox {
               label "#{field[1]} имеется?"
               items ['Не важно', 'Есть', 'Нет']
               selected 0
-
               on_selected do
                 if @filters[field[0]][:combobox].selected == 1
                   @filters[field[0]][:entry].read_only = false
@@ -35,7 +39,6 @@ class TabStudents
                 end
               end
             }
-
             @filters[field[0]][:entry] = entry {
               label field[1]
               read_only true
@@ -43,24 +46,18 @@ class TabStudents
           end
         }
       }
-
       # Секция 2
       vertical_box {
         @table = table {
-
           text_column('Фамилия И. О.')
           text_column('Гит')
           text_column('Контакт')
-
           editable false
-
           #тестовые данние
           cell_rows [['Сараев П. К.', 'podzhog_saraev', '+71111111111'], ['Жабов Б. Е.', nil, '@fffrog'], ['Ниту П. И.', 'nitupi', 'vvput@mail.ru'], ['Лобода Д. В.', nil, nil]]
         }
-
         @pages = horizontal_box {
           stretchy false
-
           button('1')
           button('2')
           button('3')
@@ -71,13 +68,15 @@ class TabStudents
 
       # Секция 3
       vertical_box {
-        stretchy true
+        stretchy false
 
         button('Добавить') { stretchy false }
         button('Изменить') { stretchy false }
+        button('Удалить') { stretchy false }
         button('Обновить') { stretchy false }
-        button('Удалить')  { stretchy false }
       }
     }
-  }
+    on_create
+    root_container
+  end
 end

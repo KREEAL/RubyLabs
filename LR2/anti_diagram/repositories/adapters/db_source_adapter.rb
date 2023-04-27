@@ -1,4 +1,5 @@
 require_relative 'C:\Users\kirya\RubymineProjects\RubyLabs\LR2\anti_diagram\repositories\data_sources\db_university.rb'
+require 'sqlite3'
 class DBSourceAdapter
 
   def initialize
