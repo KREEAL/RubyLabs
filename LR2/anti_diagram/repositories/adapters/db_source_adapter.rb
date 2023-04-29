@@ -1,4 +1,7 @@
 require_relative 'C:\Users\kirya\RubymineProjects\RubyLabs\LR2\anti_diagram\repositories\data_sources\db_university.rb'
+require_relative 'C:\Users\kirya\RubymineProjects\RubyLabs\LR2\anti_diagram\models\student_short.rb'
+require_relative 'C:\Users\kirya\RubymineProjects\RubyLabs\LR2\anti_diagram\models\student.rb'
+require_relative 'C:\Users\kirya\RubymineProjects\RubyLabs\LR2\anti_diagram\models\student_base.rb'
 require 'sqlite3'
 class DBSourceAdapter
 
@@ -17,10 +20,11 @@ class DBSourceAdapter
 
   def get_k_n_student_short_list(k,n,existing_list = nil)
 
-    students = client.prepare_exec('SELECT * FROM student LIMIT ? OFFSET ?',(k-1)*n,n)
+    students = client.prepare_exec('SELECT * FROM student LIMIT ? OFFSET ?',n,(k-1)*n)
     slice = students.map { |h| StudentShort.from_student(Student.from_hash(h)) }
-
-    DataListStudentShort.new(slice)
+    return DataListStudentShort.new(slice) if existing_list.nil?
+    existing_list.replace_objects(slice)
+    existing_list
   end
 
   def add_student(student)

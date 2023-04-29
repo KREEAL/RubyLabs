@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'data_table'
+require_relative 'C:\Users\kirya\RubymineProjects\RubyLabs\LR2\anti_diagram\containers\data_list.rb'
 class DataListStudentShort < DataList
   public_class_method :new
 

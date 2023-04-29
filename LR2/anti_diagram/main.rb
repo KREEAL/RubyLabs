@@ -46,9 +46,9 @@ def test_repository(student_rep)
   puts "Удалили. Теперь студентов #{student_rep.student_count}"
   puts 'Тест k_n_students: '
   puts 'Страница 1:'
-  puts student_rep.get_k_n_student_short_list(1, 3)
+  puts student_rep.get_k_n_student_short_list(1, 3).objects_list
   puts 'Страница 2:'
-  puts student_rep.get_k_n_student_short_list(2, 3)
+  puts student_rep.get_k_n_student_short_list(2, 4).objects_list
 
 
 end

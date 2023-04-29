@@ -3,15 +3,43 @@ require_relative 'C:\Users\kirya\RubymineProjects\RubyLabs\LR2\anti_diagram\cont
 
 class TabStudents
   include Glimmer
-
+  STUDENTS_PER_PAGE = 20
   def initialize
     @controller = TabStudentsController.new(self)
+    @current_page = 1
+    @total_count = 0
   end
 
   def on_create
-
+    @controller.on_view_created
+    @controller.refresh_data(@current_page, STUDENTS_PER_PAGE)
   end
 
+  # Метод наблюдателя datalist
+  def on_datalist_changed(new_table)
+    arr = new_table.to_2d_array
+    #arr.map { |row| row[3] = [row[3][:value], contact_color(row[3][:type])] }
+    arr.map { |row| row[3] = [row[3][:value], puts(row[3][:type])] }
+    @table.model_array = arr
+  end
+
+  def update_student_count(new_cnt)
+    @total_count = new_cnt
+    @page_label.text = "#{@current_page} / #{(@total_count / STUDENTS_PER_PAGE.to_f).ceil}"
+  end
+
+  def contact_color(type)
+    case type
+    when 'telegram'
+      '#00ADB5'
+    when 'email'
+      '#F08A5D'
+    when 'phone'
+      '#B83B5E'
+    else
+      '#000000'
+    end
+  end
   def create
     root_container = horizontal_box {
       # Секция 1
@@ -23,7 +51,7 @@ class TabStudents
             label 'Фамилия И. О.'
           }
           @filters = {}
-          fields = [[:git, 'Гит'], [:email, 'Почта'], [:phone, 'Телефон'], [:telegram, 'Телеграм']]
+          fields = [[:git, 'Гит'], [:mail, 'Почта'], [:telephone, 'Телефон'], [:telegram, 'Телеграм']]
           fields.each do |field|
             @filters[field[0]] = {}
             @filters[field[0]][:combobox] = combobox {
@@ -48,28 +76,38 @@ class TabStudents
       }
       # Секция 2
       vertical_box {
-        @table = table {
-          text_column('Фамилия И. О.')
-          text_column('Гит')
-          text_column('Контакт')
-          editable false
-          #тестовые данние
-          cell_rows [['Сараев П. К.', 'podzhog_saraev', '+71111111111'], ['Жабов Б. Е.', nil, '@fffrog'], ['Ниту П. И.', 'nitupi', 'vvput@mail.ru'], ['Лобода Д. В.', nil, nil]]
-        }
+        @table = refined_table(
+          table_editable: false,
+          table_columns: {
+            '#' => :text,
+            'Фамилия И. О' => :text,
+            'Гит' => :text,
+            'Контакт' => :text_color
+          },
+        per_page:STUDENTS_PER_PAGE
+        )
         @pages = horizontal_box {
           stretchy false
-          button('1')
-          button('2')
-          button('3')
-          label('...') { stretchy false }
-          button('10')
+          button("<") {
+            stretchy true
+            on_clicked do
+              @current_page = [@current_page - 1, 1].max
+              @controller.refresh_data(@current_page, STUDENTS_PER_PAGE)
+            end
+          }
+          @page_label = label("...") { stretchy false }
+          button(">") {
+            stretchy true
+            on_clicked do
+              @current_page = [@current_page + 1, (@total_count / STUDENTS_PER_PAGE.to_f).ceil].min
+              @controller.refresh_data(@current_page, STUDENTS_PER_PAGE)
+            end
+          }
         }
       }
-
       # Секция 3
       vertical_box {
         stretchy false
-
         button('Добавить') { stretchy false }
         button('Изменить') { stretchy false }
         button('Удалить') { stretchy false }

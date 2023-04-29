@@ -19,6 +19,10 @@ class DataTable
     table[row][col]
   end
 
+  def to_2d_array
+    table.dup
+  end
+
   public
   attr_reader :rows_count, :cols_count
 

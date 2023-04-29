@@ -25,7 +25,8 @@ class StudentsListBase
       return DataListStudentShort.new(sliced_list)
     end
     #если дали, то возвращаем его и плюс студентов из нашего списка
-    existing_short_data_list.append(sliced_list)
+    existing_short_data_list.replace_objects(sliced_list)
+    existing_short_data_list
   end
 
   def add_student(student)
