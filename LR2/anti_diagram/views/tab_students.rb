@@ -28,18 +28,6 @@ class TabStudents
     @page_label.text = "#{@current_page} / #{(@total_count / STUDENTS_PER_PAGE.to_f).ceil}"
   end
 
-  def contact_color(type)
-    case type
-    when 'telegram'
-      '#00ADB5'
-    when 'email'
-      '#F08A5D'
-    when 'phone'
-      '#B83B5E'
-    else
-      '#000000'
-    end
-  end
   def create
     root_container = horizontal_box {
       # Секция 1
