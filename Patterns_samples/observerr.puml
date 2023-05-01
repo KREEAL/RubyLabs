@@ -1,0 +1,22 @@
+@startuml
+class Frog{
+-Array<Visitors>
+--
++watch()
++unwatch()
+-jump()
+    notify
+-notify()
+}
+
+
+
+class Visitor{
+--
++WOW()
+}
+Frog o- Visitor
+@enduml
+
+def notify
+Visitors.each{|guy|,guy.WOW}

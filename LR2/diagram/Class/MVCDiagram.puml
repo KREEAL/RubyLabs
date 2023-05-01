@@ -1,0 +1,105 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+
+class MainWindow {
+    --
+    +create(): Window
+}
+
+class TabStudents {
+    -controller: TabStudentsController
+    -current_page: Integer
+    -total_count: Integer
+    --
+    +create(): HorizontalBox
+    +on_create()
+    +on_datalist_changed(DataTable)
+    +update_student_count(Integer)
+}
+
+class TabStudentsController {
+    -students_rep: StudentRepository
+    -view: TabStudents
+    -data_list: DataListStudentShort
+    --
+    +show_view()
+    +refresh_data(Integer, Integer)
+    +on_view_created()
+    +on_db_connection_error()
+}
+
+class DataTable{
+    -table : Array
+    -rows_count: Integer
+    -cols_count: Integer
+    __
+    +initialize(Array)
+    +get_item(Integer,Integer): Object
+    +to_2d_array(): Array
+    __
+    +rows_count: Integer
+    +cols_count: Integer
+    -table: Array
+    __
+    -rows_count
+    -cols_count
+    -table
+}
+
+
+abstract class DataList{
+    -objects_list : Array
+    -selected_objects: Array
+    -listeners: Array
+    __
+    -initialize(Array)
+    +select_by_number(Integer)
+    +get_selected(): Array<Integer>
+    +clear_selected()
+    +get_data(): DataTable
+    #get_names()
+    #get_fields_datatable(objects)
+
+    +replace_objects(Array)
+    +add_listener(Object)
+    +remove_listener(Object)
+    +notify()
+
+    __
+    -objects_list: Array
+    -selected_objects: Array
+    __
+    +objects_list: Array
+    -selected_objects: Array
+}
+
+class DataListStudentShort extends DataList {
+    --
+    +initialize(Array)
+    +column_names(): Array
+    #table_fields(StudentShort): Array
+}
+
+class StudentRepository {
+    -data_source_adapter
+    --
+    +initialize(data_source_adapter)
+    +student_by_id(Integer): Student
+    +paginated_short_students(Integer, Integer, DataList=nil): DataList
+    +add_student(Student): Integer
+    +replace_student(Integer, Student)
+    +remove_student(Integer)
+    +student_count(): Integer
+}
+
+TabStudents --* TabStudentsController
+TabStudents --* MainWindow
+TabStudents *-- TabStudentsController
+DataList ..> DataTable
+TabStudentsController o-- DataListStudentShort
+TabStudentsController o-- StudentRepository
+
+
+@enduml

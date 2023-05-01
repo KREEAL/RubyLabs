@@ -90,6 +90,7 @@ class DataTable{
 abstract class DataList{
     -objects_list : Array
     -selected_objects: Array
+    -listeners: Array
     __
     -initialize(Array)
     +select_by_number(Integer)
@@ -98,6 +99,11 @@ abstract class DataList{
     +get_data(): DataTable
     #get_names()
     #get_fields_datatable(objects)
+
+    +replace_objects(Array)
+    +add_listener(Object)
+    +remove_listener(Object)
+    +notify()
 
     __
     -objects_list: Array
