@@ -1,5 +1,6 @@
 require 'glimmer-dsl-libui'
 require_relative 'C:\Users\kirya\RubymineProjects\RubyLabs\LR2\anti_diagram\controllers\tab_students_controller.rb'
+require_relative 'C:\Users\kirya\RubymineProjects\RubyLabs\LR2\anti_diagram\views\input_form_student.rb'
 
 class TabStudents
   include Glimmer
@@ -96,10 +97,22 @@ class TabStudents
       # Секция 3
       vertical_box {
         stretchy false
-        button('Добавить') { stretchy false }
+        button('Добавить') {
+          stretchy false
+
+          on_clicked {
+            InputFormStudent.new.create.show
+          }
+        }
         button('Изменить') { stretchy false }
         button('Удалить') { stretchy false }
-        button('Обновить') { stretchy false }
+        button('Обновить') {
+          stretchy false
+
+          on_clicked {
+            @controller.refresh_data(@current_page, STUDENTS_PER_PAGE)
+          }
+        }
       }
     }
     on_create
