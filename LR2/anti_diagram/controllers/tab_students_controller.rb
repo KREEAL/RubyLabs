@@ -39,4 +39,16 @@ class TabStudentsController
     api.call(0, "No connection to DB", "Error", 0)
     exit(false)
   end
+
+
+  def delete_selected(current_page, per_page, selected_row)
+    begin
+      student_num = (current_page - 1) * per_page + selected_row
+      @data_list.select_by_number(student_num)
+      student_id = @data_list.get_selected[0]
+      @student_rep.remove_student(student_id)
+    rescue
+      on_db_conn_error
+    end
+  end
 end
