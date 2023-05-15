@@ -1,0 +1,31 @@
+@startuml
+actor       Пользователь                        as user
+boundary    "ts: TabStudents"                   as ts
+boundary    "ifs: InputFormStudent"             as ifs
+control     "ifsc: InputFormStudentController"  as ifsc
+entity      "srep: StudentRepository"           as srep
+
+
+user -> ts : Клик на <<Добавить>>
+ts -> ifs : <<new>>
+ifs -> ifsc : <<new>>
+ifsc --> ifs
+ifs --> ts
+ts -> ifs : create
+ifs -> ifs : on_create
+ifs -> ifsc : on_view_created
+ifsc -> srep : <<new>>
+srep --> ifsc
+ifsc --> ifs
+ifs --> ts
+ts --> user
+
+
+user -> ifs : Клик на <<Сохранить>>
+ifs -> ifs : validate_and_save
+ifs -> ifsc : save_student
+ifsc -> srep : add_student
+srep --> ifsc
+ifsc --> ifs
+ifs --> user
+@enduml
